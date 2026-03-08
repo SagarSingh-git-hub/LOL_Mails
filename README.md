@@ -1,10 +1,10 @@
-# LOL Mails
+# 😂LOL Mails
 
 **Temporary. Private. Hilarious.**
 
 LOL Mails is a temporary email service wrapper built on top of the Guerrilla Mail API. It provides a fun, modern, and privacy-focused interface for receiving disposable emails without signups.
 
-## Features
+## 🚀 Features
 
 - **Instant Email Generation**: Get a disposable email address immediately.
 - **Auto-Refresh Inbox**: Checks for new emails every 8 seconds.
@@ -13,7 +13,7 @@ LOL Mails is a temporary email service wrapper built on top of the Guerrilla Mai
 - **Fun Interactions**: Confetti on new mail, funny notification sounds, and tilt effects.
 - **QR Code & Sharing**: Easily share your temp address to other devices.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend**: Pure HTML5, CSS3, and JavaScript (Vanilla).
 - **Styling**: Custom CSS with Glassmorphism and Tailwind-like utility concepts (but pure CSS).
@@ -24,6 +24,12 @@ LOL Mails is a temporary email service wrapper built on top of the Guerrilla Mai
 
 The app uses the Guerrilla Mail JSON API.
 
-## License
+## 📝 License
 
 Free to use. Built for privacy.
+
+---
+
+**Note**: This is a landing page for the Voter Registration Management System. For the full application functionality, please refer to the main project repository.
+
+**⭐ If you found this project useful, consider giving it a star!**
