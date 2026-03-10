@@ -1280,19 +1280,24 @@
       </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
   <script>
     /* =========================================================================
        APP STATE & CONFIG
        ========================================================================= */
     const CONFIG = {
-      API_BASE: 'https://api.guerrillamail.com/ajax.php',
+      // API_BASE: 'https://api.guerrillamail.com/ajax.php', // Old Guerrilla API
+      API_HOST: 'privatix-temp-mail-v1.p.rapidapi.com',
+      API_BASE: '/request',
       POLL_INTERVAL: 8000,
       EXPIRY_TIME: 600, // 10 minutes in seconds
     };
 
     const STATE = {
+      apiKey: '',
       emailAddress: '',
-      sidToken: '',
+      emailHash: '',
+      sidToken: '', // Not used for RapidAPI but kept for structure
       emails: [],
       timer: CONFIG.EXPIRY_TIME,
       timerInterval: null,
@@ -1418,26 +1423,44 @@
     /* =========================================================================
        API SERVICE
        ========================================================================= */
-    async function apiCall(functionName, params = {}) {
-      const url = new URL(CONFIG.API_BASE);
-      url.searchParams.append('f', functionName);
+    async function apiCall(endpoint, method = 'GET') {
+      // Proxy handles API key injection
       
-      // Always append sid_token if we have it
-      if (STATE.sidToken) {
-        url.searchParams.append('sid_token', STATE.sidToken);
-      }
+      const url = `${CONFIG.API_BASE}${endpoint}`;
+      console.log('API Call:', url);
+      const headers = {
+        // 'x-rapidapi-key': STATE.apiKey, // Handled by proxy
+        // 'x-rapidapi-host': CONFIG.API_HOST
+      };
       
-      for (const [key, value] of Object.entries(params)) {
-        url.searchParams.append(key, value);
-      }
-
       try {
-        const response = await fetch(url, { method: 'GET', mode: 'cors' });
-        if (!response.ok) throw new Error(`API Error: ${response.status}`);
+        const response = await fetch(url, { method, headers });
+        if (!response.ok) {
+           // Privatix returns 404 when there are no emails
+           if (response.status === 404 && endpoint.includes('/mail/id/')) {
+             return { error: 'No emails' };
+           }
+           if (response.status === 401 || response.status === 403) {
+             STATE.apiKey = '';
+             localStorage.removeItem('rapid_api_key');
+             promptApiKey();
+             throw new Error("Invalid API Key");
+           }
+           throw new Error(`API Error: ${response.status}`);
+        }
         return await response.json();
       } catch (error) {
         console.error("API Call Failed:", error);
         throw error;
+      }
+    }
+
+    function promptApiKey() {
+      const key = prompt("Please enter your RapidAPI Key for Temp Mail (Privatix):");
+      if (key) {
+        STATE.apiKey = key;
+        localStorage.setItem('rapid_api_key', key);
+        window.location.reload(); // Reload to restart init
       }
     }
 
@@ -1451,20 +1474,29 @@
       // Start logo animation
       startLogoAnimation();
 
+      // Proxy handles authentication
       try {
         await getEmailAddress();
         startTimer();
         startPolling();
       } catch (e) {
-        showToast("Failed to initialize. Retrying...", "error");
-        setTimeout(initApp, 3000);
+        console.error(e);
+        showToast("Failed to initialize.", "error");
       }
     }
 
     async function getEmailAddress() {
-      const data = await apiCall('get_email_address');
-      STATE.emailAddress = data.email_addr;
-      STATE.sidToken = data.sid_token;
+      // 1. Get Domains
+      const domains = await apiCall('/domains/');
+      if (!Array.isArray(domains) || domains.length === 0) {
+        throw new Error("No domains available");
+      }
+      
+      // 2. Generate Random Email
+      const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+      const randomUser = Math.random().toString(36).substring(2, 12);
+      STATE.emailAddress = `${randomUser}${randomDomain}`;
+      STATE.emailHash = md5(STATE.emailAddress);
       
       document.getElementById('email-text').textContent = STATE.emailAddress;
       resetTimer();
@@ -1477,8 +1509,6 @@
     async function getNewAddress() {
        // Stop polling temporarily
        clearInterval(STATE.pollInterval);
-       // Forget token to force new session
-       STATE.sidToken = ''; 
        await getEmailAddress();
        startPolling();
        showToast("New identity generated!", "success");
@@ -1489,8 +1519,7 @@
     }
     
     async function deleteAddress() {
-      // Clear session token
-      STATE.sidToken = '';
+      // Clear session
       STATE.emailAddress = 'Session Terminated';
       document.getElementById('email-text').textContent = '— — —';
       STATE.emails = [];
@@ -1504,7 +1533,7 @@
       // Auto-restart after delay to prevent stuck state
       setTimeout(() => {
           showToast("Generating new identity...", "info");
-          initApp();
+          getNewAddress();
       }, 2000);
     }
 
@@ -1590,15 +1619,24 @@
     }
 
     async function refreshInbox() {
+      if (!STATE.emailHash) return;
+
       const icon = document.getElementById('refresh-icon');
-      icon.style.animation = 'spin 1s linear infinite';
+      if (icon) icon.style.animation = 'spin 1s linear infinite';
       
       try {
-        const data = await apiCall('check_email', { seq: 0 });
-        const newEmails = data.list || [];
+        const data = await apiCall(`/mail/id/${STATE.emailHash}/`);
+        
+        let newEmails = [];
+        if (Array.isArray(data)) {
+            newEmails = data;
+        } else if (data && data.error === 'No emails') {
+            newEmails = [];
+        } else {
+            newEmails = [];
+        }
         
         // Filter out old emails we already know about to detect NEW ones
-        // Guerrilla returns full list usually
         const currentIds = new Set(STATE.emails.map(e => e.mail_id));
         const trulyNew = newEmails.filter(e => !currentIds.has(e.mail_id));
         
@@ -1614,38 +1652,44 @@
         STATE.emails = newEmails;
         renderInbox();
       } catch (e) {
-        console.error(e);
+        console.error("Refresh failed", e);
       } finally {
-        setTimeout(() => icon.style.animation = 'none', 1000);
+        if (icon) setTimeout(() => icon.style.animation = 'none', 1000);
       }
     }
 
     async function openEmail(id) {
+      // Find basic info from local state first for immediate feedback
+      const localEmail = STATE.emails.find(e => e.mail_id === id);
+      
+      STATE.currentEmailId = id;
+      
+      // Basic rendering from local data
+      document.getElementById('reader-subject').textContent = localEmail ? (localEmail.mail_subject || '(No Subject)') : 'Loading...';
+      document.getElementById('reader-from').textContent = localEmail ? `From: ${localEmail.mail_from}` : '';
+      
+      if (localEmail && localEmail.mail_timestamp) {
+         const date = new Date(localEmail.mail_timestamp * 1000);
+         document.getElementById('reader-date').textContent = date.toLocaleString();
+      }
+      
+      const container = document.getElementById('reader-content-container');
+      container.innerHTML = '<div class="skeleton" style="height: 300px; width: 100%;"></div>';
+      
+      document.getElementById('email-reader').classList.add('open');
+
+      // Mark as read locally (visual only)
+      const el = document.getElementById(`email-${id}`);
+      if(el) el.classList.remove('unread');
+      
       try {
-        // Show loading state in reader?
-        const email = STATE.emails.find(e => e.mail_id === id);
-        if (!email) return;
-
-        STATE.currentEmailId = id;
-        
-        document.getElementById('reader-subject').textContent = email.mail_subject;
-        document.getElementById('reader-from').textContent = `From: ${email.mail_from}`;
-        document.getElementById('reader-date').textContent = email.mail_date; // Guerrilla provides formatted date usually
-        
-        const container = document.getElementById('reader-content-container');
-        container.innerHTML = '<div class="skeleton" style="height: 300px; width: 100%;"></div>';
-        
-        document.getElementById('email-reader').classList.add('open');
-
-        // Mark as read locally (visual only)
-        const el = document.getElementById(`email-${id}`);
-        if(el) el.classList.remove('unread');
-        
-        // Fetch full content
-        const data = await apiCall('fetch_email', { email_id: id });
+        // Fetch full content from API
+        // Endpoint: /request/one_mail/id/{mail_id}/
+        const fullEmail = await apiCall(`/one_mail/id/${id}/`);
         
         // Render Body
-        const body = data.mail_body; // Usually HTML
+        const body = fullEmail.mail_html || fullEmail.mail_text || '<i>No content</i>';
+        
         // Create iframe to isolate styles
         const iframe = document.createElement('iframe');
         iframe.className = 'email-iframe';
@@ -1655,16 +1699,29 @@
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(`
-          <style>
-            body { font-family: sans-serif; padding: 20px; color: #333; word-wrap: break-word; }
-            a { color: #4A9FD4; }
-          </style>
-          ${body}
-        `);
+            <style>
+              body { font-family: sans-serif; padding: 20px; color: #333; word-wrap: break-word; }
+              a { color: #4A9FD4; }
+            </style>
+            ${body}
+          `);
         doc.close();
-
       } catch (e) {
-        showToast("Failed to load email", "error");
+        console.error("Failed to fetch full email", e);
+        // Fallback to local content if available
+        if (localEmail) {
+            const body = localEmail.mail_html || localEmail.mail_text || '<i>Failed to load content.</i>';
+            container.innerHTML = '';
+            const iframe = document.createElement('iframe');
+            iframe.className = 'email-iframe';
+            container.appendChild(iframe);
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(`<style>body{font-family:sans-serif;padding:20px;}</style>${body}`);
+            doc.close();
+        } else {
+            container.innerHTML = '<div style="padding: 20px; text-align: center;">Failed to load email.</div>';
+        }
       }
     }
     
@@ -1708,8 +1765,9 @@
       if (!STATE.currentEmailId) return;
       
       try {
-        await apiCall('del_email', { email_ids: STATE.currentEmailId });
-        showToast("Email deleted", "success");
+        // await apiCall('del_email', { email_ids: STATE.currentEmailId });
+        // RapidAPI Basic plan doesn't always support message deletion, so we just remove locally
+        showToast("Email removed from list", "success");
         closeReader();
         
         // Remove from local list
@@ -1729,36 +1787,46 @@
       const unreadBadge = document.getElementById('unread-count');
       
       list.innerHTML = '';
-      unreadBadge.textContent = STATE.emails.length; // Guerrilla API seq=0 returns all active emails
+      unreadBadge.textContent = STATE.emails.length; 
       
       if (STATE.emails.length === 0) {
-        emptyState.style.display = 'flex';
+        if(emptyState) emptyState.style.display = 'flex';
         return;
       }
       
-      emptyState.style.display = 'none';
+      if(emptyState) emptyState.style.display = 'none';
       
       STATE.emails.forEach((email, index) => {
         const li = document.createElement('li');
-        li.className = `email-item ${email.mail_read === '0' ? 'unread' : ''} slide-up`; // API doesn't always track read state reliably for stateless fetches, assuming unread for visual pop
+        // Privatix doesn't have mail_read, so we assume unread or track locally if we wanted
+        li.className = `email-item unread slide-up`; 
         li.id = `email-${email.mail_id}`;
         li.style.animationDelay = `${index * 0.05}s`;
         li.onclick = () => openEmail(email.mail_id);
         
+        // Format timestamp
+        let timeStr = 'Today';
+        if (email.mail_timestamp) {
+            const date = new Date(email.mail_timestamp * 1000);
+            timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        const preview = email.mail_preview || email.mail_excerpt || email.mail_subject || 'No preview';
+        
         li.innerHTML = `
           <div class="email-content">
             <div class="email-sender">${email.mail_from}</div>
-            <div class="email-subject">${email.mail_subject}</div>
-            <div class="email-preview">${email.mail_excerpt}</div>
+            <div class="email-subject">${email.mail_subject || '(No Subject)'}</div>
+            <div class="email-preview">${preview}</div>
           </div>
           
           <div class="email-preview-tooltip">
             <strong style="display:block; margin-bottom:4px;">${email.mail_subject}</strong>
-            ${email.mail_excerpt}
+            ${preview}
           </div>
           
           <div class="email-meta">
-            <span class="email-time">${email.mail_date.split(' ')[1] || 'Today'}</span> <!-- Simple parse -->
+            <span class="email-time">${timeStr}</span>
           </div>
         `;
         list.appendChild(li);
