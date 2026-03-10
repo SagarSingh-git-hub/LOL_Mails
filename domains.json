@@ -1,1 +1,0 @@
-{"@context":"\/contexts\/Domain","@id":"\/domains","@type":"hydra:Collection","hydra:totalItems":1,"hydra:member":[{"@id":"\/domains\/698b6125924742a609a9f076","@type":"Domain","id":"698b6125924742a609a9f076","domain":"dollicons.com","isActive":true,"isPrivate":false,"createdAt":"2026-02-10T00:00:00+00:00","updatedAt":"2026-02-10T00:00:00+00:00"}]}
