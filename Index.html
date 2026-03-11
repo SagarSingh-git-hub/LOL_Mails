@@ -7,6 +7,7 @@
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     /* =========================================================================
@@ -481,7 +482,8 @@
       text-align: center;
       padding: 40px;
       position: relative;
-      overflow: hidden;
+      z-index: 50; /* Ensure popover stays above content below */
+      /* overflow: hidden; Removed to allow QR popover to overflow */
       /* Light source shimmer behind */
     }
     
@@ -1086,7 +1088,7 @@
   <header class="header-glass">
     <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 60px;">
       <div style="display: flex; align-items: center; gap: 8px;">
-        <span id="logo-emoji" style="font-size: 1.5rem; cursor: pointer; display: inline-block;">😂</span>
+        <img id="logo-emoji" src="LOL.svg" alt="LOL Logo" style="height: 40px; width: auto; cursor: pointer; display: inline-block;">
         <h1 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text-primary);">LOL Mails</h1>
       </div>
       <div style="display: none; align-items: center; gap: 8px;" class="desktop-only">
@@ -1259,11 +1261,11 @@
           
           <div class="share-grid">
               <a id="share-wa" href="#" target="_blank" class="share-option">
-                  <span class="share-icon" style="color: #25D366;">💬</span>
+                  <span class="share-icon" style="color: #25D366;"><i class="fab fa-whatsapp"></i></span>
                   <span class="share-label">WhatsApp</span>
               </a>
               <a id="share-tg" href="#" target="_blank" class="share-option">
-                  <span class="share-icon" style="color: #0088cc;">✈️</span>
+                  <span class="share-icon" style="color: #0088cc;"><i class="fab fa-telegram"></i></span>
                   <span class="share-label">Telegram</span>
               </a>
               <a id="share-email" href="#" class="share-option">
@@ -1602,7 +1604,7 @@
     function openShareModal() {
         const modal = document.getElementById('share-modal');
         // Update links
-        document.getElementById('share-wa').href = `https://wa.me/?text=${encodeURIComponent(`Here is my temporary email: ${STATE.emailAddress}`)}`;
+        document.getElementById('share-wa').href = `https://wa.me/?text=${encodeURIComponent(`Send me an email at: ${STATE.emailAddress}`)}`;
         document.getElementById('share-tg').href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(`My temp email: ${STATE.emailAddress}`)}`;
         document.getElementById('share-email').href = `mailto:?subject=My Temp Email&body=${encodeURIComponent(`Email me at: ${STATE.emailAddress}`)}`;
         
