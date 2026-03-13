@@ -1766,6 +1766,208 @@
             container.innerHTML = '<div style="padding: 20px; text-align: center;">Failed to load email.</div>';
         }
       }
+          }
+    
+    /* =========================================================================
+       ATTACHMENT LOGIC
+       ========================================================================= */
+    function renderAttachments(attachments) {
+        const section = document.getElementById('attachment-section');
+        const list = document.getElementById('attachment-list');
+        const countBadge = document.getElementById('attachment-count');
+        
+        // Ensure it's an array
+        const attArray = Array.isArray(attachments) ? attachments : (attachments.attachment ? attachments.attachment : []);
+        
+        if (attArray.length === 0) return;
+        
+        section.style.display = 'block';
+        countBadge.textContent = attArray.length;
+        list.innerHTML = '';
+        
+        attArray.forEach(att => {
+            const card = document.createElement('div');
+            card.className = 'attachment-card';
+            
+            const icon = getFileIcon(att.filename || 'file');
+            const size = att.size ? formatBytes(att.size) : 'Unknown size';
+            
+            // Store data for preview/download
+            // Use encodeURIComponent to safely store JSON if needed, but simple closure is better
+            
+            card.innerHTML = `
+                <div class="file-icon">${icon}</div>
+                <div class="file-info">
+                    <div class="file-name" title="${att.filename}">${att.filename}</div>
+                    <div class="file-size">${size}</div>
+                </div>
+                <div class="file-actions">
+                    <button class="action-icon-btn" title="Preview" onclick="previewAttachment('${att.filename}', '${att.content_transfer_encoding}', '${att.content}', '${att.mimetype}')">
+                        👁️
+                    </button>
+                    <button class="action-icon-btn" title="Download" onclick="downloadAttachment('${att.filename}', '${att.content}', '${att.mimetype}')">
+                        ⬇
+                    </button>
+                </div>
+            `;
+            list.appendChild(card);
+        });
+    }
+    
+    function getFileIcon(filename) {
+        const ext = filename.split('.').pop().toLowerCase();
+        const icons = {
+            pdf: '📄',
+            doc: '📝', docx: '📝',
+            xls: '📊', xlsx: '📊', csv: '📊',
+            ppt: '📉', pptx: '📉',
+            jpg: '🖼️', jpeg: '🖼️', png: '🖼️', gif: '🖼️', webp: '🖼️',
+            zip: '📦', rar: '📦', '7z': '📦',
+            mp3: '🎵', wav: '🎵',
+            mp4: '🎬', mov: '🎬',
+            txt: '📃', md: '📃',
+            html: '💻', css: '💻', js: '💻', json: '💻'
+        };
+        return icons[ext] || '📎';
+    }
+    
+    function formatBytes(bytes, decimals = 2) {
+        if (!+bytes) return '0 B';
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+    }
+    
+    function downloadAttachment(filename, content, mimetype) {
+        try {
+            const blob = b64toBlob(content, mimetype);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`Downloaded ${filename}`, 'success');
+        } catch(e) {
+            console.error(e);
+            showToast("Download failed", 'error');
+        }
+    }
+    
+    function previewAttachment(filename, encoding, content, mimetype) {
+        const modal = document.getElementById('preview-modal');
+        const title = document.getElementById('preview-filename');
+        const body = document.getElementById('preview-body');
+        const dlBtn = document.getElementById('preview-download-btn');
+        
+        title.textContent = filename;
+        body.innerHTML = '';
+        modal.classList.add('active');
+        
+        // Setup download button
+        dlBtn.onclick = () => downloadAttachment(filename, content, mimetype);
+        
+        try {
+            const ext = filename.split('.').pop().toLowerCase();
+            const blob = b64toBlob(content, mimetype);
+            const url = URL.createObjectURL(blob);
+            
+            // Image
+            if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'].includes(ext)) {
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = 'preview-media';
+                body.appendChild(img);
+            }
+            // PDF
+            else if (ext === 'pdf') {
+                const iframe = document.createElement('iframe');
+                iframe.src = url;
+                iframe.className = 'preview-iframe';
+                body.appendChild(iframe);
+            }
+            // Audio
+            else if (['mp3', 'wav', 'ogg'].includes(ext)) {
+                const audio = document.createElement('audio');
+                audio.src = url;
+                audio.controls = true;
+                body.appendChild(audio);
+            }
+            // Video
+            else if (['mp4', 'webm', 'ogg'].includes(ext)) {
+                const video = document.createElement('video');
+                video.src = url;
+                video.controls = true;
+                video.className = 'preview-media';
+                body.appendChild(video);
+            }
+            // Text / Code
+            else if (['txt', 'md', 'html', 'css', 'js', 'json', 'xml', 'log', 'py', 'java', 'c', 'cpp'].includes(ext)) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const pre = document.createElement('div');
+                    pre.className = 'preview-code';
+                    pre.textContent = reader.result;
+                    body.appendChild(pre);
+                };
+                reader.readAsText(blob);
+            }
+            // Others (Office, Archives, etc)
+            else {
+                body.innerHTML = `
+                    <div class="unsupported-preview">
+                        <div style="font-size: 3rem; margin-bottom: 16px;">📦</div>
+                        <h3>Preview not available</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                            This file type (${ext}) cannot be previewed directly in the browser.
+                        </p>
+                        <button class="btn btn-primary" onclick="document.getElementById('preview-download-btn').click()">
+                            Download to View
+                        </button>
+                    </div>
+                `;
+            }
+            
+        } catch(e) {
+            console.error(e);
+            body.innerHTML = '<div class="unsupported-preview">Error loading preview.</div>';
+        }
+    }
+    
+    function closePreview() {
+        document.getElementById('preview-modal').classList.remove('active');
+        // Clear src to stop media playing
+        setTimeout(() => {
+             document.getElementById('preview-body').innerHTML = '';
+        }, 300);
+    }
+    
+    // Helper: Base64 to Blob
+    function b64toBlob(b64Data, contentType='', sliceSize=512) {
+        // Handle if encoding is not standard or contains prefixes
+        // The API usually returns raw base64 string
+        
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+      
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+      
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+      
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+      
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
     }
     
     /* =========================================================================
