@@ -1196,6 +1196,14 @@
   <!-- Footer -->
   <footer class="slide-up" style="animation-delay: 0.3s;">
     <p>LOL Mails © 2026 — Free forever. Built for privacy.</p>
+    <div class="footer-links">
+        <a href="about.html" class="footer-link">About</a>
+        <a href="privacy.html" class="footer-link">Privacy</a>
+        <a href="terms.html" class="footer-link">Terms</a>
+        <a href="blog.html" class="footer-link">Blog</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+    </div>
+
     <div class="theme-switcher-manual">
       <button class="theme-btn" onclick="setThemeOverride('morning')" title="Morning">🌅</button>
       <button class="theme-btn" onclick="setThemeOverride('noon')" title="Noon">☀️</button>
@@ -1230,6 +1238,17 @@
         
         <div id="reader-content-container" style="margin-top: 20px; height: 100%;">
           <!-- Content injected here -->
+        </div>
+                
+        <!-- Attachment Section -->
+        <div id="attachment-section" class="attachment-section" style="display: none;">
+          <div class="attachment-title">
+                <span>📎 Attachments</span>
+                <span id="attachment-count" class="badge" style="background: var(--glass-border); color: var(--text-primary);">0</span>
+            </div>
+            <div id="attachment-list" class="attachment-list">
+                <!-- Attachments injected here -->
+          </div>
         </div>
       </div>
     </div>
@@ -1279,6 +1298,28 @@
           </div>
           
           <button onclick="closeShareModal()" class="btn btn-glass" style="margin-top: 20px; width: 100%; justify-content: center;">Cancel</button>
+      </div>
+  </div>
+
+    <!-- Preview Modal -->
+  <div id="preview-modal" class="preview-modal">
+      <div class="preview-content">
+          <div class="preview-header">
+              <div class="preview-title">
+                  <span id="preview-filename">file.name</span>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                  <button class="btn btn-primary" id="preview-download-btn" style="padding: 8px 16px; font-size: 0.85rem;">
+                      ⬇ Download
+                  </button>
+                  <button class="action-icon-btn" onclick="closePreview()" style="width: 36px; height: 36px; font-size: 1.2rem;">
+                      ✕
+                  </button>
+              </div>
+          </div>
+          <div class="preview-body" id="preview-body">
+              <!-- Content injected here -->
+          </div>
       </div>
   </div>
 
