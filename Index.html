@@ -1236,7 +1236,7 @@
           </div>
         </div>
         
-        <div id="reader-content-container" style="margin-top: 20px; height: 100%;">
+        <div id="reader-content-container" style="margin-top: 20px; min-height: 200px;">
           <!-- Content injected here -->
         </div>
                 
@@ -1710,7 +1710,11 @@
       // Basic rendering from local data
       document.getElementById('reader-subject').textContent = localEmail ? (localEmail.mail_subject || '(No Subject)') : 'Loading...';
       document.getElementById('reader-from').textContent = localEmail ? `From: ${localEmail.mail_from}` : '';
-      
+
+      // Reset Attachments
+      document.getElementById('attachment-section').style.display = 'none';
+      document.getElementById('attachment-list').innerHTML = '';
+
       if (localEmail && localEmail.mail_timestamp) {
          const date = new Date(localEmail.mail_timestamp * 1000);
          document.getElementById('reader-date').textContent = date.toLocaleString();
@@ -1736,6 +1740,14 @@
         // Create iframe to isolate styles
         const iframe = document.createElement('iframe');
         iframe.className = 'email-iframe';
+        // Resize iframe based on content height
+        iframe.onload = function() {
+            try {
+                const height = iframe.contentWindow.document.body.scrollHeight;
+                iframe.style.height = (height + 50) + 'px';
+            } catch(e) {}
+        };
+        
         container.innerHTML = '';
         container.appendChild(iframe);
         
@@ -1743,12 +1755,20 @@
         doc.open();
         doc.write(`
             <style>
-              body { font-family: sans-serif; padding: 20px; color: #333; word-wrap: break-word; }
+              body { font-family: sans-serif; padding: 20px; color: #333; word-wrap: break-word;  overflow-y: hidden; }
               a { color: #4A9FD4; }
+              /* Hide scrollbars if possible */
+              ::-webkit-scrollbar { width: 0px; background: transparent; }
             </style>
             ${body}
           `);
         doc.close();
+                
+        // Handle Attachments
+        if (fullEmail.mail_attachments && fullEmail.mail_attachments_count > 0) {
+            renderAttachments(fullEmail.mail_attachments);
+        }
+        
       } catch (e) {
         console.error("Failed to fetch full email", e);
         // Fallback to local content if available
