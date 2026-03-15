@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About LOL Mails | Modern Temporary Email</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-gradient-start: #F5F7FA;
+      --bg-gradient-mid: #EBF2FA;
+      --bg-gradient-end: #E4EBF5;
+      --accent-primary: #4A9FD4;
+      --text-primary: #1A2E42;
+      --text-secondary: #5A7185;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.8);
+      --card-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+      --hover-shadow: 0 20px 50px -10px rgba(74, 159, 212, 0.15);
+      --surface-elevated: rgba(255, 255, 255, 0.18);
+      --soft-panel-bg: rgba(255, 255, 255, 0.32);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid, var(--bg-gradient-start)), var(--bg-gradient-end));
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 60px;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Navigation */
+    .nav-header { margin-bottom: 40px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--text-secondary); text-decoration: none;
+      font-weight: 500; font-size: 0.95rem;
+      padding: 8px 16px; background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px; transition: all 0.2s ease;
+    }
+    .back-link:hover {
+      background: var(--surface-elevated); color: var(--accent-primary);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12); transform: translateX(-2px);
+    }
+
+    /* Hero */
+    .hero-section {
+      text-align: center; margin-bottom: 60px; animation: fadeIn 0.6s ease-out;
+    }
+    .page-title {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3.2rem;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .intro-text {
+        max-width: 600px; margin: 10px auto 0; color: var(--text-secondary); font-size: 1.2rem;
+    }
+
+    /* Cards */
+    .section-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      animation: slideUp 0.6s ease-out forwards;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--hover-shadow);
+        background: var(--surface-elevated);
+    }
+    
+    /* Decorative icon background */
+    .section-card::before {
+        content: '';
+        position: absolute;
+        top: -20px; right: -20px;
+        width: 100px; height: 100px;
+        background: var(--accent-primary);
+        opacity: 0.05;
+        border-radius: 50%;
+        filter: blur(40px);
+        transition: opacity 0.3s;
+    }
+    .section-card:hover::before { opacity: 0.1; }
+
+    .section-header {
+        display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+    }
+    
+    .section-icon {
+        width: 48px; height: 48px;
+        background: linear-gradient(135deg, var(--surface-elevated), var(--soft-panel-bg));
+        border: 1px solid var(--glass-border);
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.4rem; color: var(--accent-primary);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-content {
+      color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7;
+    }
+    
+    /* Feature List */
+    .feature-list {
+        display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px;
+    }
+    @media(min-width: 600px) { .feature-list { grid-template-columns: 1fr 1fr; } }
+    
+    .feature-item {
+        display: flex; align-items: center; gap: 10px;
+        background: var(--soft-panel-bg); padding: 12px 16px;
+        border-radius: 12px; border: 1px solid var(--glass-border);
+    }
+    .feature-item i { color: #2ecc71; }
+
+    /* Animation */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { 
+        from { opacity: 0; transform: translateY(20px); } 
+        to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    .section-card:nth-child(1) { animation-delay: 0.1s; }
+    .section-card:nth-child(2) { animation-delay: 0.2s; }
+    .section-card:nth-child(3) { animation-delay: 0.3s; }
+    .section-card:nth-child(4) { animation-delay: 0.4s; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-title { font-size: 2.4rem; }
+      .section-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-header">
+      <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Inbox</a>
+    </nav>
+
+    <header class="hero-section">
+      <h1 class="page-title">About LOL Mails</h1>
+      <p class="intro-text">The funniest, most secure, and completely anonymous temporary email service on the web.</p>
+    </header>
+
+    <div class="content-wrapper">
+      
+      <!-- 1. What is it -->
+      <section class="section-card">
+        <div class="section-header">
+            <div class="section-icon">🚀</div>
+            <h2 class="section-title">What is LOL Mails?</h2>
+        </div>
+        <div class="section-content">
+          <p>LOL Mails is a modern, disposable email service designed to protect your real inbox. We provide you with a temporary email address that self-destructs after a set period. It requires no registration, no password, and absolutely no personal information. Just open the page, get an email, and go.</p>
+        </div>
+      </section>
+
+      <!-- 2. Why Use It -->
+      <section class="section-card">
+        <div class="section-header">
+            <div class="section-icon">⚡</div>
+            <h2 class="section-title">Why Use Temporary Email?</h2>
+        </div>
+        <div class="section-content">
+          <p>In today's digital world, signing up for every service exposes you to risks. Use LOL Mails to:</p>
+          <div class="feature-list">
+              <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Avoid spam in your real inbox</span></div>
+              <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Protect your personal identity</span></div>
+              <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Test software and apps</span></div>
+              <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Sign up for one-time discounts</span></div>
+              <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Bypass forced registrations</span></div>
+              <div class="feature-item"><i class="fas fa-check-circle"></i> <span>Stay 100% anonymous</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Privacy First -->
+      <section class="section-card">
+        <div class="section-header">
+            <div class="section-icon">🛡️</div>
+            <h2 class="section-title">Privacy First Philosophy</h2>
+        </div>
+        <div class="section-content">
+          <p>We believe privacy is a fundamental human right. Unlike other services that track you:</p>
+          <ul style="list-style: none; margin-top: 15px;">
+              <li style="margin-bottom: 10px;">🚫 <strong>No Logs:</strong> We do not store your IP address or activity logs.</li>
+              <li style="margin-bottom: 10px;">🚫 <strong>No Tracking:</strong> We do not use invasive trackers or sell your data.</li>
+              <li style="margin-bottom: 10px;">🚫 <strong>No Persistence:</strong> Once an email is deleted, it is gone forever.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. Security -->
+      <section class="section-card">
+        <div class="section-header">
+            <div class="section-icon">🔒</div>
+            <h2 class="section-title">Security Architecture</h2>
+        </div>
+        <div class="section-content">
+          <p>Our infrastructure is built to be ephemeral. Data is stored in volatile memory and flushed regularly. Attachments are scanned for basic threats, but we always recommend caution when opening files from unknown sources. Our goal is to provide a safe buffer between the internet and your personal life.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+  <script src="theme.js"></script>
+</body>
+</html>

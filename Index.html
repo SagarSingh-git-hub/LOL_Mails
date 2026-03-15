@@ -4,7 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOL Mails | Temporary. Private. Hilarious.</title>
-  
+
+  <!-- i18n Base -->
+  <base href="/">
+  <link rel="alternate" hreflang="x-default" href="https://www.lolmails.sagarsinghdev.online/">
+  <link rel="alternate" hreflang="en" href="https://www.lolmails.sagarsinghdev.online/en/">
+  <link rel="alternate" hreflang="hi" href="https://www.lolmails.sagarsinghdev.online/hi/">
+  <link rel="alternate" hreflang="es" href="https://www.lolmails.sagarsinghdev.online/es/">
+  <link rel="alternate" hreflang="fr" href="https://www.lolmails.sagarsinghdev.online/fr/">
+  <link rel="alternate" hreflang="de" href="https://www.lolmails.sagarsinghdev.online/de/">
+  <link rel="alternate" hreflang="zh" href="https://www.lolmails.sagarsinghdev.online/zh/">
+  <link rel="alternate" hreflang="ja" href="https://www.lolmails.sagarsinghdev.online/ja/">
+  <link rel="alternate" hreflang="ru" href="https://www.lolmails.sagarsinghdev.online/ru/">
+  <link rel="alternate" hreflang="ar" href="https://www.lolmails.sagarsinghdev.online/ar/">
+  <link rel="alternate" hreflang="pt" href="https://www.lolmails.sagarsinghdev.online/pt/">
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1392,13 +1406,13 @@
 
   <!-- Footer -->
   <footer class="slide-up" style="animation-delay: 0.3s;">
-    <p>LOL Mails © 2026 — Free forever. Built for privacy.</p>
+    <p data-i18n="footer.copyright">LOL Mails © 2026 — Free forever. Built for privacy.</p>
     <div class="footer-links">
-        <a href="about.html" class="footer-link">About</a>
-        <a href="privacy.html" class="footer-link">Privacy</a>
-        <a href="terms.html" class="footer-link">Terms</a>
-        <a href="blog.html" class="footer-link">Blog</a>
-        <a href="contact.html" class="footer-link">Contact</a>
+        <a href="about.html" class="footer-link" data-i18n="nav.about">About</a>
+        <a href="privacy.html" class="footer-link" data-i18n="nav.privacy">Privacy</a>
+        <a href="terms.html" class="footer-link" data-i18n="nav.terms">Terms</a>
+        <a href="blog.html" class="footer-link" data-i18n="nav.blog">Blog</a>
+        <a href="contact.html" class="footer-link" data-i18n="nav.contact">Contact</a>
     </div>
 
     <div class="theme-switcher-manual">
@@ -1618,6 +1632,13 @@
     };
 
     function updateTheme() {
+      // Check localStorage first (handled by init logic usually, but here we sync)
+      const saved = localStorage.getItem('theme_override');
+      if (saved && THEMES[saved]) {
+          STATE.themeOverride = saved;
+      }
+
+
       if (STATE.themeOverride) {
         applyTheme(THEMES[STATE.themeOverride]);
         return;
@@ -1656,6 +1677,7 @@
 
     function setThemeOverride(themeKey) {
       STATE.themeOverride = themeKey;
+      localStorage.setItem('theme_override', themeKey); // Save to storage
       updateTheme();
       showToast(`Theme set to ${THEMES[themeKey].name}`, 'success');
     }
@@ -1743,6 +1765,7 @@
       
       // Clear inbox on new address
       STATE.emails = [];
+      STATE.deletedEmailIds.clear(); // Clear deleted list for new email
       renderInbox();
     }
     
@@ -1878,7 +1901,7 @@
         
         // Filter out old emails we already know about to detect NEW ones
         const currentIds = new Set(STATE.emails.map(e => e.mail_id));
-        const trulyNew = newEmails.filter(e => !currentIds.has(e.mail_id));
+        const trulyNew = newEmails.filter(e => !currentIds.has(e.mail_id) && !STATE.deletedEmailIds.has(e.mail_id));
         
         if (trulyNew.length > 0) {
           if (!STATE.hasReceivedEmail) {
@@ -1889,7 +1912,20 @@
           playNotificationSound(); // Play sound
         }
         
-        STATE.emails = newEmails;
+        // Merge and Filter Deleted
+        // We keep existing emails (to preserve read status/local state) and add new ones
+        // Then filter out any that are in deletedEmailIds
+        // Finally sort by timestamp descending
+        
+        const allEmails = [...STATE.emails, ...trulyNew];
+        
+        // Deduplicate just in case
+        const uniqueEmails = Array.from(new Map(allEmails.map(item => [item.mail_id, item])).values());
+        
+        STATE.emails = uniqueEmails
+            .filter(e => !STATE.deletedEmailIds.has(e.mail_id))
+            .sort((a, b) => (b.mail_timestamp || 0) - (a.mail_timestamp || 0)); // Sort Newest First
+            
         renderInbox();
       } catch (e) {
         console.error("Refresh failed", e);
@@ -2165,26 +2201,42 @@
     
     // Helper: Base64 to Blob
     function b64toBlob(b64Data, contentType='', sliceSize=512) {
-        // Handle if encoding is not standard or contains prefixes
-        // The API usually returns raw base64 string
-        
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-      
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-          const slice = byteCharacters.slice(offset, offset + sliceSize);
-      
-          const byteNumbers = new Array(slice.length);
-          for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-          }
-      
-          const byteArray = new Uint8Array(byteNumbers);
-          byteArrays.push(byteArray);
+        try {
+            // Remove any data URL prefix if present (e.g., "data:image/png;base64,")
+            const base64String = b64Data.includes(',') ? b64Data.split(',')[1] : b64Data;
+            
+            // Remove any whitespace or newlines that can break atob
+            let sanitizedData = base64String.replace(/\s/g, '');
+            
+            // Add padding if needed
+            while (sanitizedData.length % 4 !== 0) {
+                sanitizedData += '=';
+            }
+            
+            // Replace URL-safe chars if present
+            sanitizedData = sanitizedData.replace(/-/g, '+').replace(/_/g, '/');
+
+            const byteCharacters = atob(sanitizedData);
+            const byteArrays = [];
+          
+            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+              const slice = byteCharacters.slice(offset, offset + sliceSize);
+          
+              const byteNumbers = new Array(slice.length);
+              for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+              }
+          
+              const byteArray = new Uint8Array(byteNumbers);
+              byteArrays.push(byteArray);
+            }
+          
+            return new Blob(byteArrays, {type: contentType});
+        } catch (error) {
+            console.error('b64toBlob Error:', error);
+            // Return empty blob or throw for caller to handle
+            throw error;
         }
-      
-        const blob = new Blob(byteArrays, {type: contentType});
-        return blob;
     }
     
     /* =========================================================================
@@ -2231,6 +2283,9 @@
         // RapidAPI Basic plan doesn't always support message deletion, so we just remove locally
         showToast("Email removed from list", "success");
         closeReader();
+
+        // Add to persistent deleted list
+        STATE.deletedEmailIds.add(STATE.currentEmailId);
         
         // Remove from local list
         STATE.emails = STATE.emails.filter(e => e.mail_id !== STATE.currentEmailId);
