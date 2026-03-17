@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | LOL Mails</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-gradient-start: #EEF2F5;
+      --bg-gradient-mid: #EAF0F5;
+      --bg-gradient-end: #E6E9EF;
+      --accent-primary: #FF6B6B; /* Warmer tone for contact */
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --glass-bg: rgba(255, 255, 255, 0.8);
+      --glass-border: rgba(255, 255, 255, 1);
+      --surface-elevated: rgba(255, 255, 255, 0.18);
+      --soft-panel-bg: rgba(255, 255, 255, 0.34);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid, var(--bg-gradient-start)), var(--bg-gradient-end));
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      flex: 1;
+      display: flex; flex-direction: column;
+    }
+
+    .nav-header { margin-bottom: 60px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--text-secondary); text-decoration: none;
+      font-weight: 500; font-size: 0.95rem;
+      padding: 10px 20px; background: var(--glass-bg); border-radius: 30px;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: all 0.2s;
+    }
+    .back-link:hover { transform: translateY(-2px); color: var(--accent-primary); background: var(--surface-elevated); }
+
+    .hero { text-align: center; margin-bottom: 60px; }
+    .hero-title {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3.5rem;
+      margin-bottom: 16px; color: var(--text-primary);
+    }
+    .hero-subtitle {
+      font-size: 1.1rem; color: var(--text-secondary); max-width: 500px; margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr; gap: 24px;
+    }
+    @media(min-width: 768px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+
+    .contact-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    
+    .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        background: var(--surface-elevated);
+    }
+
+    .icon-wrapper {
+        width: 80px; height: 80px;
+        background: var(--soft-panel-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 2rem; color: var(--accent-primary);
+        margin-bottom: 24px;
+        transition: transform 0.3s;
+    }
+    .contact-card:hover .icon-wrapper { transform: scale(1.1) rotate(10deg); }
+
+    .card-title {
+        font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700;
+        margin-bottom: 8px;
+    }
+    
+    .card-desc {
+        color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;
+    }
+
+    .email-box {
+        background: var(--soft-panel-bg);
+        border: 1px solid var(--glass-border);
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-family: 'DM Sans', monospace;
+        font-weight: 600;
+        color: var(--text-primary);
+        display: flex; align-items: center; gap: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+        font-size: 0.9rem;
+        max-width: 100%;
+        overflow: hidden;
+    }
+    .email-box:hover { background: var(--surface-elevated); }
+    .email-box:active { transform: scale(0.98); }
+    
+    .email-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Toast */
+    .toast {
+        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+        background: var(--text-primary); color: var(--bg-gradient-end); padding: 12px 24px; border-radius: 30px;
+        font-weight: 500; opacity: 0; transition: all 0.3s;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* Animation */
+    .fade-up { animation: fadeUp 0.6s ease-out forwards; opacity: 0; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-header">
+      <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Inbox</a>
+    </nav>
+
+    <header class="hero fade-up">
+      <h1 class="hero-title">Contact Us</h1>
+      <p class="hero-subtitle">Have questions, suggestions, or found a bug? We'd love to hear from you.</p>
+    </header>
+
+    <div class="contact-grid">
+      
+      <!-- Support -->
+      <div class="contact-card fade-up delay-1">
+        <div class="icon-wrapper"><i class="fas fa-headset"></i></div>
+        <h2 class="card-title">General Support</h2>
+        <p class="card-desc">For general help, feedback, bugs, or questions about the service.</p>
+        <div class="email-box" onclick="copyEmail('support@lolmails.sagarsinghdev.online')">
+            <span class="email-text">support@lolmails.sagarsinghdev.online</span>
+            <i class="fas fa-copy" style="color: #ADB5BD;"></i>
+        </div>
+      </div>
+
+      <!-- Abuse -->
+      <div class="contact-card fade-up delay-2">
+        <div class="icon-wrapper" style="background: rgba(255, 71, 87, 0.1); color: #ff4757;"><i class="fas fa-shield-alt"></i></div>
+        <h2 class="card-title">Abuse Reports</h2>
+        <p class="card-desc">Report spam, phishing, illegal activity, or misuse of our service.</p>
+        <div class="email-box" onclick="copyEmail('abuse@lolmails.sagarsinghdev.online')">
+            <span class="email-text">abuse@lolmails.sagarsinghdev.online</span>
+            <i class="fas fa-copy" style="color: #ADB5BD;"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div id="toast" class="toast">Email copied to clipboard!</div>
+
+  <script>
+    function copyEmail(email) {
+        navigator.clipboard.writeText(email).then(() => {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
+  </script>
+  <script src="theme.js"></script>
+</body>
+</html>
