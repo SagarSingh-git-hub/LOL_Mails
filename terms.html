@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | LOL Mails</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-gradient-start: #F0F4F8;
+      --bg-gradient-mid: #ECF2F8;
+      --bg-gradient-end: #E6EEF5;
+      --accent-primary: #4A9FD4;
+      --accent-secondary: #2C7ABF;
+      --text-primary: #1A2E42;
+      --text-secondary: #5A7185;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.8);
+      --card-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+      --hover-shadow: 0 20px 50px -10px rgba(74, 159, 212, 0.15);
+      --surface-elevated: rgba(255, 255, 255, 0.18);
+      --soft-panel-bg: rgba(255, 255, 255, 0.34);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid, var(--bg-gradient-start)), var(--bg-gradient-end));
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 60px;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Navigation */
+    .nav-header {
+      margin-bottom: 40px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      transition: all 0.2s ease;
+    }
+    .back-link:hover {
+      background: var(--surface-elevated);
+      color: var(--accent-primary);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      transform: translateX(-2px);
+    }
+
+    /* Hero */
+    .hero-section {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeIn 0.6s ease-out;
+    }
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .last-updated {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--soft-panel-bg);
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+    }
+    .intro-text {
+        max-width: 600px;
+        margin: 20px auto 0;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+
+    /* Cards */
+    .section-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.45s ease-out forwards;
+      opacity: 0;
+      contain: layout paint;
+    }
+    
+    .section-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--hover-shadow);
+        background: var(--soft-panel-bg);
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .section-number {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.9rem;
+        color: var(--accent-primary);
+        background: var(--soft-panel-bg);
+        width: 28px; height: 28px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 50%;
+        font-weight: 700;
+    }
+
+    .section-content {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+    
+    .section-content ul {
+        list-style: none;
+        padding-left: 10px;
+        margin-top: 15px;
+    }
+    
+    .section-content li {
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 24px;
+    }
+    
+    .section-content li::before {
+        content: "•";
+        color: var(--accent-primary);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+    }
+
+    /* Animation */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    /* Stagger animations */
+    .section-card:nth-child(1) { animation-delay: 0.1s; }
+    .section-card:nth-child(2) { animation-delay: 0.2s; }
+    .section-card:nth-child(3) { animation-delay: 0.3s; }
+    .section-card:nth-child(4) { animation-delay: 0.4s; }
+    .section-card:nth-child(5) { animation-delay: 0.5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section-card,
+      .hero-section {
+        animation: none;
+        opacity: 1;
+      }
+      .section-card:hover,
+      .back-link:hover {
+        transform: none;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-title { font-size: 2.2rem; }
+      .section-card { padding: 24px; border-radius: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-header">
+      <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Inbox</a>
+    </nav>
+
+    <header class="hero-section">
+      <h1 class="page-title">Terms of Service</h1>
+      <div class="last-updated">Last updated: March 14, 2026</div>
+      <p class="intro-text">Please read these terms carefully before using our temporary email service. By accessing LOL Mails, you agree to be bound by these terms.</p>
+    </header>
+
+    <div class="content-wrapper">
+      
+      <!-- 1. Acceptance -->
+      <section class="section-card">
+        <h2 class="section-title"><span class="section-number">01</span> Acceptance of Terms</h2>
+        <div class="section-content">
+          <p>By accessing and using LOL Mails ("the Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these terms, please do not use this Service.</p>
+        </div>
+      </section>
+
+      <!-- 2. Use License -->
+      <section class="section-card">
+        <h2 class="section-title"><span class="section-number">02</span> Use License</h2>
+        <div class="section-content">
+          <p>Permission is granted to temporarily use LOL Mails for personal, non-commercial transitory viewing and communication purposes only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+          <ul>
+              <li>Modify or copy the materials for commercial purpose.</li>
+              <li>Attempt to decompile or reverse engineer any software contained on the Service.</li>
+              <li>Remove any copyright or other proprietary notations from the materials.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3. Acceptable Use -->
+      <section class="section-card">
+        <h2 class="section-title"><span class="section-number">03</span> Acceptable Use Policy</h2>
+        <div class="section-content">
+          <p>You agree to use the Service only for lawful purposes. You are strictly prohibited from using LOL Mails for:</p>
+          <ul>
+            <li>Sending unsolicited bulk email (SPAM).</li>
+            <li>Engaging in illegal activities, including fraud, phishing, or identity theft.</li>
+            <li>Distributing malware, viruses, or harmful software.</li>
+            <li>Harassment, abuse, or threatening behavior.</li>
+            <li>Registering accounts on platforms that explicitly ban temporary emails if it violates their terms.</li>
+          </ul>
+          <p style="margin-top: 15px; font-size: 0.9rem; color: #ff4757;">Violation of these terms may result in immediate termination of access.</p>
+        </div>
+      </section>
+
+      <!-- 4. Disclaimer -->
+      <section class="section-card">
+        <h2 class="section-title"><span class="section-number">04</span> Disclaimer</h2>
+        <div class="section-content">
+          <p>The materials on LOL Mails are provided "as is". LOL Mails makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+        </div>
+      </section>
+
+      <!-- 5. Limitations -->
+      <section class="section-card">
+        <h2 class="section-title"><span class="section-number">05</span> Limitations</h2>
+        <div class="section-content">
+          <p>In no event shall LOL Mails or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on LOL Mails, even if LOL Mails has been notified orally or in writing of the possibility of such damage.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+  <script src="theme.js"></script>
+</body>
+</html>
