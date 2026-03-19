@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | LOL Mails</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-gradient-start: #F7F9FC;
+      --bg-gradient-mid: #F0F5FA;
+      --bg-gradient-end: #EBF1F7;
+      --accent-primary: #6C5CE7; /* Subtle Purple/Blue for privacy */
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --glass-bg: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.9);
+      --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      --hover-shadow: 0 15px 40px rgba(108, 92, 231, 0.15);
+      --surface-elevated: rgba(255, 255, 255, 0.18);
+      --soft-panel-bg: rgba(255, 255, 255, 0.34);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid, var(--bg-gradient-start)), var(--bg-gradient-end));
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 80px;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Nav */
+    .nav-header { margin-bottom: 50px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--text-secondary); text-decoration: none;
+      font-weight: 500; font-size: 0.9rem;
+      padding: 8px 16px; background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px; transition: all 0.2s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .back-link:hover { transform: translateY(-2px); color: var(--accent-primary); }
+
+    /* Hero */
+    .hero {
+      text-align: center; margin-bottom: 60px;
+    }
+    .hero-title {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3.5rem;
+      margin-bottom: 10px; color: var(--text-primary);
+    }
+    .hero-subtitle {
+      font-size: 0.95rem; color: var(--text-secondary);
+      background: var(--soft-panel-bg); color: var(--accent-primary);
+      padding: 6px 14px; border-radius: 20px; display: inline-block; font-weight: 600;
+      border: 1px solid var(--glass-border);
+    }
+
+    /* Layout Grid */
+    .policy-grid {
+      display: grid; grid-template-columns: 1fr; gap: 30px;
+    }
+    
+    /* Cards */
+    .policy-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .policy-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--hover-shadow);
+        background: var(--surface-elevated);
+    }
+
+    .card-header {
+        display: flex; align-items: center; gap: 15px; margin-bottom: 16px;
+        padding-bottom: 16px; border-bottom: 1px solid var(--glass-border);
+    }
+    
+    .card-icon {
+        width: 40px; height: 40px; background: var(--soft-panel-bg);
+        color: var(--accent-primary); border-radius: 10px;
+        display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        border: 1px solid var(--glass-border);
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700;
+    }
+
+    .card-content {
+      color: var(--text-secondary); font-size: 1rem;
+    }
+
+    /* Animation */
+    .fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards; opacity: 0;
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    @media (max-width: 600px) {
+        .hero-title { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-header">
+      <a href="/" class="back-link"><i class="fas fa-chevron-left"></i> Back to Inbox</a>
+    </nav>
+
+    <div class="hero fade-in-up">
+      <h1 class="hero-title">Privacy Policy</h1>
+      <span class="hero-subtitle">Last updated: March 14, 2026</span>
+    </div>
+
+    <div class="policy-grid">
+      
+      <!-- 1. Data Collection -->
+      <div class="policy-card fade-in-up delay-1">
+        <div class="card-header">
+            <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+            <h2 class="card-title">1. Data Collection</h2>
+        </div>
+        <div class="card-content">
+            <p>We are strict about data minimization. LOL Mails does <strong>not</strong> collect personal data. We do not require you to register, provide a real email address, or create a password. We do not store your IP address alongside your activity.</p>
+        </div>
+      </div>
+
+      <!-- 2. Email Retention -->
+      <div class="policy-card fade-in-up delay-2">
+        <div class="card-header">
+            <div class="card-icon"><i class="fas fa-hourglass-end"></i></div>
+            <h2 class="card-title">2. Email Retention</h2>
+        </div>
+        <div class="card-content">
+            <p>All emails received by our temporary addresses are stored in volatile memory. They are retained for a maximum of 10-60 minutes (depending on server load) and then <strong>permanently deleted</strong>. Once deleted, they cannot be recovered by anyone, including us.</p>
+        </div>
+      </div>
+
+      <!-- 3. Cookies -->
+      <div class="policy-card fade-in-up delay-3">
+        <div class="card-header">
+            <div class="card-icon"><i class="fas fa-cookie-bite"></i></div>
+            <h2 class="card-title">3. Cookies & Local Storage</h2>
+        </div>
+        <div class="card-content">
+            <p>We use browser Local Storage solely to maintain your temporary email session and save your theme preferences. We do not use cookies for cross-site tracking, advertising profiling, or identifying you personally.</p>
+        </div>
+      </div>
+
+      <!-- 4. Analytics -->
+      <div class="policy-card fade-in-up delay-4">
+        <div class="card-header">
+            <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+            <h2 class="card-title">4. Analytics</h2>
+        </div>
+        <div class="card-content">
+            <p>We use anonymous, privacy-focused analytics to understand general site usage patterns (e.g., "how many users visited today"). No personally identifiable information (PII) is collected or transmitted to third parties.</p>
+        </div>
+      </div>
+
+      <!-- 5. Sharing -->
+      <div class="policy-card fade-in-up delay-4">
+        <div class="card-header">
+            <div class="card-icon"><i class="fas fa-handshake-slash"></i></div>
+            <h2 class="card-title">5. Information Sharing</h2>
+        </div>
+        <div class="card-content">
+            <p>We do not sell, trade, or otherwise transfer your information to outside parties. Since we do not collect personal information in the first place, we have nothing to share.</p>
+        </div>
+      </div>
+      
+      <!-- 6. Changes -->
+      <div class="policy-card fade-in-up delay-4">
+        <div class="card-header">
+            <div class="card-icon"><i class="fas fa-sync-alt"></i></div>
+            <h2 class="card-title">6. Changes to Policy</h2>
+        </div>
+        <div class="card-content">
+            <p>We may update this privacy policy from time to time to reflect changes in our practices or legal requirements. Updates will be posted on this page with a revised "Last updated" date.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="theme.js"></script>
+</body>
+</html>
