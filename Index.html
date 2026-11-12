@@ -260,23 +260,65 @@
       transition: background var(--transition-speed), border-color var(--transition-speed);
     }
 
+    .header-inner {
+      max-width: 1130px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+      padding: 0 24px;
+      transition: height 0.3s ease, padding 0.3s ease;
+    }
+
+    .header-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo-img {
+      height: 46px;
+      width: auto;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.25s ease;
+    }
+
+    .header-logo-img:hover {
+      transform: scale(1.06) rotate(-2deg);
+    }
+
+    .header-logo-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .header-theme-badge {
+      background: rgba(0, 0, 0, 0.05);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+    }
+
     /* =========================================================================
        ACTION BUTTON GRID (Glassmorphism Pill Style)
        ========================================================================= */
     .action-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-      max-width: 480px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+      max-width: 520px;
       margin-left: auto;
       margin-right: auto;
-    }
-
-    @media (min-width: 640px) {
-      .action-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      width: 100%;
     }
 
     .action-btn {
@@ -827,10 +869,12 @@
 
     .intro-hero-center {
       text-align: center;
-      max-width: 760px;
+      max-width: 820px;
+      width: 100%;
       margin: 0 auto;
       position: relative;
       z-index: 2;
+      box-sizing: border-box;
     }
 
     /* Top Announcement Pill */
@@ -879,11 +923,16 @@
     .intro-headline {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(2.2rem, 4.2vw, 3.2rem);
-      line-height: 1.15;
+      font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+      line-height: 1.22;
       letter-spacing: -0.02em;
-      margin-bottom: 12px;
+      margin: 0 auto 12px auto;
       color: var(--text-primary);
+      text-align: center;
+    }
+
+    .headline-line {
+      display: block;
     }
 
     .intro-headline-highlight {
@@ -896,12 +945,14 @@
 
     /* Subtitle */
     .intro-subtitle {
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       line-height: 1.55;
       color: var(--text-secondary);
-      max-width: 620px;
+      max-width: 600px;
       margin: 0 auto 16px auto;
       font-weight: 400;
+      text-align: center;
+      text-wrap: balance;
     }
 
     /* Feature Tags Row */
@@ -957,7 +1008,7 @@
     }
 
     .intro-3d-graphic {
-      width: clamp(118px, 10.8vw, 148px);
+      width: clamp(100px, 9.5vw, 136px);
       height: auto;
       aspect-ratio: 1 / 1;
       object-fit: contain;
@@ -967,12 +1018,12 @@
     }
 
     .intro-float-left {
-      left: 4px;
+      left: 12px;
       animation: float3DLeft 6.5s ease-in-out infinite alternate;
     }
 
     .intro-float-right {
-      right: 4px;
+      right: 12px;
       animation: float3DRight 7.5s ease-in-out infinite alternate;
     }
 
@@ -982,7 +1033,7 @@
       }
 
       50% {
-        transform: translateY(-50%) translate3d(0, -14px, 0) rotate(1.5deg);
+        transform: translateY(-50%) translate3d(0, -12px, 0) rotate(1.5deg);
       }
 
       100% {
@@ -996,7 +1047,7 @@
       }
 
       50% {
-        transform: translateY(-50%) translate3d(0, -16px, 0) rotate(-1.5deg);
+        transform: translateY(-50%) translate3d(0, -14px, 0) rotate(-1.5deg);
       }
 
       100% {
@@ -1011,7 +1062,7 @@
 
     .intro-float-3d:hover .intro-3d-graphic,
     .intro-float-widget:hover .intro-3d-graphic {
-      transform: scale(1.12) rotate(4deg);
+      transform: scale(1.1) rotate(3deg);
     }
 
     .status-pulse-green {
@@ -1048,11 +1099,6 @@
       }
     }
 
-    @media (max-width: 1080px) {
-      .intro-float-widget {
-        display: none !important;
-      }
-    }
 
     /* Hero Section */
     .hero-card {
@@ -1087,11 +1133,6 @@
       background-size: 300px 300px;
       opacity: 0.3;
       animation: starTwinkle 5s infinite alternate;
-    }
-
-    animation: lightSource 10s infinite alternate;
-    z-index: -1;
-    pointer-events: none;
     }
 
     @keyframes lightSource {
@@ -1187,6 +1228,7 @@
       flex-direction: column;
       position: relative;
       z-index: 1;
+      margin-top: -10px; /* Slightly decreased space between Box 1 and Box 2 */
     }
 
     .inbox-header {
@@ -1648,75 +1690,337 @@
       background: var(--surface-elevated, rgba(255, 255, 255, 0.65));
     }
 
-    /* Responsive & Layout Tweaks */
-    @media (max-width: 768px) {
+    /* =========================================================================
+       COMPREHENSIVE ADAPTIVE DEVICE SYSTEM (Mobile, Tablet, Laptop, Desktop)
+       ========================================================================= */
+
+    /* Tier 1: Laptops & Medium Desktops (992px to 1199px) */
+    @media (max-width: 1199px) {
+      .container {
+        padding: 24px 20px 40px 20px;
+        gap: 22px;
+      }
+
+      .intro-3d-graphic {
+        width: clamp(80px, 7.5vw, 110px);
+      }
+
+      .intro-float-left {
+        left: 4px;
+      }
+
+      .intro-float-right {
+        right: 4px;
+      }
+
+      .intro-headline {
+        font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+      }
+    }
+
+    /* Tier 2: Tablets & Small Laptops (768px to 991px) */
+    @media (max-width: 991px) {
+      .intro-float-3d,
+      .intro-float-widget {
+        display: none !important;
+      }
+
+      .intro-hero-center {
+        max-width: 100%;
+        padding: 0 16px;
+      }
+
+      .intro-headline {
+        font-size: clamp(1.6rem, 3.8vw, 2.15rem);
+      }
+
+      .intro-subtitle {
+        font-size: 0.92rem;
+        max-width: 580px;
+      }
+
+      .container {
+        padding: 20px 16px 36px 16px;
+        gap: 20px;
+      }
+
       .hero-card {
-        padding: 20px 16px;
+        padding: 22px 18px;
       }
 
       .inbox-panel {
-        padding: 16px 14px;
+        padding: 18px 16px;
+      }
+
+      .action-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 480px;
+        gap: 10px;
+      }
+    }
+
+    /* Tier 3: Phablets & Landscape Mobile (481px to 767px) */
+    @media (max-width: 767px) {
+      .header-inner {
+        height: 62px;
+        padding: 0 16px;
+      }
+
+      .header-logo-img {
+        height: 40px;
+      }
+
+      .header-logo-title {
+        font-size: 1.2rem;
+      }
+
+      .intro-hero-wrapper {
+        padding: 6px 0 10px 0;
+      }
+
+      .intro-pill {
+        padding: 4px 10px;
+        font-size: 0.76rem;
+      }
+
+      .desktop-break {
+        display: none;
+      }
+
+      .intro-headline {
+        font-size: clamp(1.45rem, 4.8vw, 1.85rem);
+        line-height: 1.24;
+      }
+
+      .intro-subtitle {
+        font-size: 0.88rem;
+        line-height: 1.5;
+        padding: 0 8px;
+      }
+
+      .hero-card {
+        padding: 18px 14px;
+      }
+
+      .hero-title {
+        font-size: 1.45rem;
+      }
+
+      .email-pill-container {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 50px;
+        padding: 4px 6px;
+        max-width: 100%;
+        gap: 6px;
+      }
+
+      .email-pill-content {
+        font-size: 0.92rem;
+        padding: 8px 14px;
+        max-width: calc(100vw - 160px);
+      }
+
+      .qr-btn {
+        width: 38px;
+        height: 38px;
+      }
+
+      .action-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 100%;
+        gap: 8px;
+      }
+
+      .action-btn {
+        padding: 8px 4px 6px 4px;
+        border-radius: 12px;
+      }
+
+      .action-icon {
+        width: 20px;
+        height: 20px;
+        margin-bottom: 2px;
+      }
+
+      .action-label {
+        font-size: 0.72rem;
+      }
+
+      .inbox-panel {
+        padding: 16px 12px;
       }
 
       .email-reader {
         width: 100%;
         max-width: 100%;
       }
-
-      .header-glass {
-        padding: 10px 20px;
-      }
-
-      .action-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .email-pill-content {
-        font-size: 0.9rem;
-        max-width: 200px;
-      }
     }
 
+    /* Tier 4: Small Mobile Devices (320px to 480px) */
     @media (max-width: 480px) {
+      .header-inner {
+        height: 58px;
+        padding: 0 12px;
+      }
+
+      .header-logo-img {
+        height: 36px;
+      }
+
+      .header-logo-title {
+        font-size: 1.15rem;
+      }
+
       .container {
-        padding: 10px;
-        gap: 16px;
+        padding: 12px 10px 24px 10px;
+        gap: 14px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .intro-pill {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+        gap: 6px;
+      }
+
+      .intro-pill-badge {
+        font-size: 0.62rem;
+        padding: 2px 6px;
+      }
+
+      .intro-pill-text {
+        font-size: 0.72rem;
+      }
+
+      .intro-headline {
+        font-size: clamp(1.28rem, 5.8vw, 1.58rem);
+        line-height: 1.25;
+        margin-bottom: 10px;
+      }
+
+      .intro-subtitle {
+        font-size: 0.82rem;
+        line-height: 1.45;
+        padding: 0 4px;
+        margin-bottom: 12px;
+      }
+
+      .intro-tags-row {
+        gap: 5px;
+      }
+
+      .intro-feature-tag {
+        font-size: 0.68rem;
+        padding: 3px 8px;
       }
 
       .hero-card {
-        padding: 16px 12px;
+        padding: 16px 10px;
+        border-radius: 20px;
+      }
+
+      .hero-title {
+        font-size: 1.3rem;
+      }
+
+      /* Keep horizontal capsule on small mobile */
+      .email-pill-container {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 50px;
+        padding: 3px 5px;
+        gap: 4px;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .email-pill-content {
+        font-size: clamp(0.76rem, 3.5vw, 0.86rem);
+        padding: 7px 8px;
+        max-width: calc(100vw - 125px);
+        border-right: 1px solid var(--glass-border);
+        border-bottom: none;
+        margin: 0;
+        text-align: left;
+      }
+
+      .qr-btn {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+      }
+
+      .action-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        max-width: 100%;
+        margin-top: 12px;
+      }
+
+      .action-btn {
+        padding: 7px 2px 5px 2px;
+        border-radius: 10px;
+      }
+
+      .action-icon {
+        width: 16px;
+        height: 16px;
+        margin-bottom: 2px;
+      }
+
+      .action-label {
+        font-size: 0.68rem;
+      }
+
+      .expiry-container {
+        font-size: 0.74rem;
+        margin-top: 10px;
+      }
+
+      .expiry-timer {
+        font-size: 0.74rem;
       }
 
       .inbox-panel {
         padding: 14px 10px;
-      }
-
-      .hero-title {
-        font-size: 1.5rem;
-      }
-
-      .email-pill-container {
-        flex-direction: column;
         border-radius: 20px;
+      }
+
+      .inbox-header {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .email-item {
+        padding: 12px 10px;
         gap: 8px;
-        padding: 12px;
       }
 
-      .email-pill-content {
-        border-right: none;
-        border-bottom: 1px solid var(--glass-border);
-        padding: 0 0 8px 0;
-        margin: 0;
-        width: 100%;
-        text-align: center;
+      .email-sender {
+        font-size: 0.85rem;
       }
 
-      .qr-btn {
-        align-self: center;
+      .email-subject {
+        font-size: 0.8rem;
       }
 
-      .action-grid {
-        gap: 10px;
+      .email-preview {
+        font-size: 0.75rem;
+      }
+
+      .email-time {
+        font-size: 0.7rem;
+      }
+
+      .qr-modal-card {
+        width: 94vw;
+        max-width: 360px;
+        padding: 16px 12px;
+        border-radius: 20px;
       }
     }
 
@@ -2103,21 +2407,17 @@
 
   <!-- Header -->
   <header class="header-glass">
-    <div
-      style="max-width: 1130px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 60px; padding: 0 20px;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <img id="logo-emoji" src="LOL.svg" alt="LOL Logo"
-          style="height: 40px; width: auto; cursor: pointer; display: inline-block;">
-        <h1 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text-primary);">
-          LOL Mails</h1>
+    <div class="header-inner">
+      <div class="header-logo-group">
+        <img id="logo-emoji" src="LOL.svg" alt="LOL Logo" class="header-logo-img">
+        <h1 class="header-logo-title">LOL Mails</h1>
       </div>
       <div style="display: none; align-items: center; gap: 8px;" class="desktop-only">
         <span
-          style="font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary);">Temporary.
+          style="font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary);">Temporary.
           Private. Hilarious.</span>
       </div>
-      <div id="theme-badge"
-        style="background: rgba(0,0,0,0.05); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--glass-border);">
+      <div id="theme-badge" class="header-theme-badge">
         Loading Theme...
       </div>
     </div>
@@ -2129,7 +2429,7 @@
     <div class="intro-hero-wrapper slide-up">
       <!-- Left Floating 3D Graphic (1.svg) -->
       <div class="intro-float-3d intro-float-widget intro-float-left desktop-only" title="3D Temp Mail Envelope">
-        <img src="1.svg" alt="3D Temp Mail Envelope" class="intro-3d-graphic" width="145" height="145" loading="eager">
+        <img src="1.svg" alt="3D Temp Mail Envelope" class="intro-3d-graphic" width="135" height="135" loading="eager">
       </div>
 
       <!-- Center Hero Content -->
@@ -2143,12 +2443,13 @@
         </div>
 
         <h1 class="intro-headline">
-          LOL Mails that vanishes <br>
-          <span class="intro-headline-highlight">before spam finds you</span>
+          <span class="headline-line">LOL Mails that vanishes</span>
+          <span class="headline-line intro-headline-highlight">before spam finds you</span>
         </h1>
 
         <p class="intro-subtitle">
-          One click, one address, no sign-up. We catch your verification code the second it lands.
+          One click, one address, no sign-up.<br class="desktop-break">
+          We catch your verification code the second it lands.
         </p>
 
         <div class="intro-tags-row">
@@ -2179,7 +2480,7 @@
 
       <!-- Right Floating 3D Graphic (2.svg) -->
       <div class="intro-float-3d intro-float-widget intro-float-right desktop-only" title="3D Privacy Shield">
-        <img src="2.svg" alt="3D Privacy Shield" class="intro-3d-graphic" width="145" height="145" loading="eager">
+        <img src="2.svg" alt="3D Privacy Shield" class="intro-3d-graphic" width="135" height="135" loading="eager">
       </div>
     </div>
 
