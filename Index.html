@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOL Mails | Temporary. Private. Hilarious.</title>
 
-  <!-- i18n Base -->
-  <base href="/">
+  <!-- i18n Links -->
   <link rel="alternate" hreflang="x-default" href="https://www.lolmails.sagarsinghdev.online/">
   <link rel="alternate" hreflang="en" href="https://www.lolmails.sagarsinghdev.online/en/">
   <link rel="alternate" hreflang="hi" href="https://www.lolmails.sagarsinghdev.online/hi/">
@@ -20,9 +20,12 @@
   <link rel="alternate" hreflang="pt" href="https://www.lolmails.sagarsinghdev.online/pt/">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <script src="theme.js"></script>
+
   <style>
     /* =========================================================================
        THEME VARIABLES
@@ -42,7 +45,7 @@
       --text-muted: #7B94A6;
       --glow-color: rgba(255, 255, 255, 0.5);
       --card-hover-glow: rgba(74, 159, 212, 0.2);
-      
+
       --transition-speed: 1.5s;
     }
 
@@ -77,56 +80,83 @@
       height: 100vh;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 9998; /* Below confetti */
+      z-index: 9998;
+      /* Below confetti */
       opacity: 0.4;
       mix-blend-mode: overlay;
     }
 
     @keyframes gradient-move {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
     /* Floating Particles Background (CSS Only version for ambient motion) */
     .bg-shape {
-        position: fixed;
-        border-radius: 50%;
-        filter: blur(80px);
-        z-index: -1;
-        opacity: 0.6;
-        animation: float-bg 20s infinite alternate ease-in-out;
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.6;
+      animation: float-bg 20s infinite alternate ease-in-out;
     }
-    
+
     .bg-shape-1 {
-        width: 400px; height: 400px;
-        background: var(--accent-primary);
-        top: -100px; left: -100px;
-        animation-duration: 25s;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-primary);
+      top: -100px;
+      left: -100px;
+      animation-duration: 25s;
     }
-    
+
     .bg-shape-2 {
-        width: 300px; height: 300px;
-        background: var(--accent-secondary);
-        bottom: -50px; right: -50px;
-        animation-duration: 18s;
-        animation-delay: -5s;
+      width: 300px;
+      height: 300px;
+      background: var(--accent-secondary);
+      bottom: -50px;
+      right: -50px;
+      animation-duration: 18s;
+      animation-delay: -5s;
     }
-    
+
     .bg-shape-3 {
-        width: 200px; height: 200px;
-        background: #ff4757; /* Contrast pop */
-        top: 40%; left: 60%;
-        opacity: 0.4;
-        animation-duration: 22s;
-        animation-delay: -10s;
+      width: 240px;
+      height: 240px;
+      background: var(--qr-orb-glow, var(--card-hover-glow));
+      top: 40%;
+      left: 60%;
+      opacity: 0.55;
+      animation-duration: 22s;
+      animation-delay: -10s;
+      transition: background 1.2s ease, opacity 1.2s ease;
     }
 
     @keyframes float-bg {
-        0% { transform: translate(0, 0) scale(1); }
-        33% { transform: translate(50px, -50px) scale(1.1); }
-        66% { transform: translate(-30px, 20px) scale(0.9); }
-        100% { transform: translate(20px, 60px) scale(1.05); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(50px, -50px) scale(1.1);
+      }
+
+      66% {
+        transform: translate(-30px, 20px) scale(0.9);
+      }
+
+      100% {
+        transform: translate(20px, 60px) scale(1.05);
+      }
     }
 
     /* =========================================================================
@@ -137,71 +167,85 @@
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid var(--glass-border);
-      box-shadow: 0 8px 32px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.2);
-      border-radius: 24px; /* More rounded */
-      transition: transform 0.1s ease-out, box-shadow 0.3s ease, background var(--transition-speed), border-color var(--transition-speed); /* Faster transform for tilt */
-      transform-style: preserve-3d; /* Key for 3D effect */
+      box-shadow: 0 8px 32px var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      /* More rounded */
+      transition: transform 0.1s ease-out, box-shadow 0.3s ease, background var(--transition-speed), border-color var(--transition-speed);
+      /* Faster transform for tilt */
+      transform-style: preserve-3d;
+      /* Key for 3D effect */
     }
 
     /* 3D Tilt Hover Effect - Handled by JS, but base CSS here */
     .tilt-card {
-        will-change: transform;
+      will-change: transform;
     }
-    
+
     .glass-panel:hover {
       /* Transform handled by JS for tilt, fallbacks here removed to avoid conflict */
-      box-shadow: 0 20px 50px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.4);
-      border-color: rgba(255,255,255,0.8);
+      box-shadow: 0 20px 50px var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      border-color: rgba(255, 255, 255, 0.8);
     }
-    
+
     /* Inner Glow on hover */
     .glass-panel::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        border-radius: 24px;
-        box-shadow: inset 0 0 20px var(--card-hover-glow);
-        opacity: 0;
-        transition: opacity 0.3s;
-        pointer-events: none;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      box-shadow: inset 0 0 20px var(--card-hover-glow);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
     }
-    
+
     .glass-panel:hover::after {
-        opacity: 1;
+      opacity: 1;
     }
 
     /* Special Night Mode Tweaks */
     body.night-mode .glass-panel {
-        backdrop-filter: blur(25px) saturate(110%);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        background: linear-gradient(145deg, rgba(24, 24, 27, 0.6), rgba(9, 9, 11, 0.8));
+      backdrop-filter: blur(25px) saturate(110%);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: linear-gradient(145deg, rgba(24, 24, 27, 0.6), rgba(9, 9, 11, 0.8));
     }
-    
+
     body.night-mode .email-item {
-        background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.03);
     }
-    
+
     body.night-mode .email-item:hover {
-        background: rgba(255, 255, 255, 0.06);
-        border-color: var(--accent-primary);
-        box-shadow: 0 0 15px rgba(129, 140, 248, 0.1); /* Glow on hover */
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 15px rgba(129, 140, 248, 0.1);
+      /* Glow on hover */
     }
-    
+
     body.night-mode .hero-card::before {
-        /* Starfield effect */
-        background-image: 
-            radial-gradient(1px 1px at 10% 10%, #fff 100%, transparent),
-            radial-gradient(1px 1px at 20% 40%, #fff 100%, transparent),
-            radial-gradient(2px 2px at 40% 80%, var(--accent-primary) 100%, transparent),
-            radial-gradient(1px 1px at 80% 20%, #fff 100%, transparent);
-        background-size: 300px 300px;
-        opacity: 0.3;
-        animation: starTwinkle 5s infinite alternate;
+      /* Starfield effect */
+      background-image:
+        radial-gradient(1px 1px at 10% 10%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 20% 40%, #fff 100%, transparent),
+        radial-gradient(2px 2px at 40% 80%, var(--accent-primary) 100%, transparent),
+        radial-gradient(1px 1px at 80% 20%, #fff 100%, transparent);
+      background-size: 300px 300px;
+      opacity: 0.3;
+      animation: starTwinkle 5s infinite alternate;
     }
-    
+
     @keyframes starTwinkle {
-        0% { opacity: 0.2; transform: translateY(0); }
-        100% { opacity: 0.4; transform: translateY(-10px); }
+      0% {
+        opacity: 0.2;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 0.4;
+        transform: translateY(-10px);
+      }
     }
 
     /* Header pinned glass */
@@ -222,9 +266,9 @@
     .action-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 24px;
-      max-width: 500px;
+      gap: 10px;
+      margin-top: 14px;
+      max-width: 480px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -240,53 +284,69 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 8px 8px 8px;
+      background: var(--surface-elevated, rgba(255, 255, 255, 0.65));
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
       border-radius: 16px;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
       color: var(--text-primary);
+      box-shadow: 0 4px 14px -3px var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.7);
     }
 
     .action-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: var(--surface-elevated, rgba(255, 255, 255, 0.9));
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 20px -3px var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border-color: var(--accent-primary);
     }
-    
+
     .action-btn:active {
       transform: translateY(-1px) scale(0.98);
     }
 
     .action-icon {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       margin-bottom: 4px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .action-btn:hover .action-icon {
-      transform: scale(1.1) rotate(5deg);
+      transform: scale(1.15) rotate(6deg);
     }
 
     .action-label {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.3px;
     }
 
     .btn-danger {
-      color: #ff4757;
-      border-color: rgba(255, 71, 87, 0.3);
+      color: #f43f5e;
+      border-color: rgba(244, 63, 94, 0.35);
+      box-shadow: 0 6px 20px -4px rgba(244, 63, 94, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
     }
-    
+
     .btn-danger:hover {
-      background: rgba(255, 71, 87, 0.1);
-      border-color: rgba(255, 71, 87, 0.6);
+      background: rgba(255, 241, 242, 0.8);
+      border-color: #f43f5e;
+      box-shadow: 0 12px 28px -4px rgba(244, 63, 94, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    body.night-mode .btn-danger {
+      background: rgba(244, 63, 94, 0.12);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: #fb7185;
+      box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    body.night-mode .btn-danger:hover {
+      background: rgba(244, 63, 94, 0.22);
+      border-color: #fb7185;
     }
 
     /* Buttons */
@@ -315,7 +375,7 @@
       background: var(--accent-secondary);
       box-shadow: 0 6px 20px var(--card-hover-glow);
     }
-    
+
     .btn-primary:active {
       transform: scale(0.95);
     }
@@ -349,12 +409,13 @@
       border-radius: 50px;
       padding: 6px;
       margin: 16px 0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       backdrop-filter: blur(10px);
       transition: all 0.3s ease;
       max-width: 100%;
       position: relative;
-      z-index: 50; /* Ensure popover stays above buttons */
+      z-index: 50;
+      /* Ensure popover stays above buttons */
     }
 
     .email-pill-container:hover {
@@ -364,7 +425,8 @@
 
     .email-pill-content {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem; /* Slightly larger */
+      font-size: 1.1rem;
+      /* Slightly larger */
       padding: 10px 20px;
       color: var(--text-primary);
       cursor: pointer;
@@ -374,90 +436,350 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 300px; /* Truncate on small screens */
+      max-width: 300px;
+      /* Truncate on small screens */
     }
-    
+
     .qr-btn {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      border: none;
-      background: transparent;
+      border: 1.5px solid var(--glass-border);
+      background: var(--surface-elevated, rgba(255, 255, 255, 0.45));
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-size: 1.1rem;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       color: var(--text-primary);
+      padding: 0;
+      flex-shrink: 0;
     }
-    
+
     .qr-btn:hover {
       background: var(--accent-primary);
       color: white;
-      transform: scale(1.1) rotate(-10deg);
-      box-shadow: 0 4px 12px var(--card-hover-glow);
+      transform: scale(1.08);
+      box-shadow: 0 4px 14px var(--card-hover-glow);
+    }
+
+    .email-pill-container .qr-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      background: var(--qr-btn-gradient, linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%));
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 14px var(--qr-btn-shadow, var(--card-hover-glow));
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .email-pill-container .qr-btn:hover {
+      transform: scale(1.08) translateY(-1px);
+      box-shadow: 0 6px 20px var(--qr-btn-shadow, var(--card-hover-glow));
+      filter: brightness(1.08);
+    }
+
+    .email-pill-container .qr-btn svg {
+      color: #ffffff;
+      width: 18px;
+      height: 18px;
+      display: block;
     }
 
     /* =========================================================================
-       QR POPOVER (Replaces Modal)
+       ADDRESS QR CODE MODAL (Matches Image 2)
        ========================================================================= */
-    .qr-popover {
-        position: absolute;
-        top: calc(100% + 15px);
-        right: 0;
-        width: 180px;
-        height: 180px;
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05);
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px) scale(0.95);
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        z-index: 1000;
-        pointer-events: none;
+    /* =========================================================================
+       THEME-ADAPTIVE ADDRESS QR CODE MODAL
+       Seamlessly matches Morning 🌅, Noon ☀️, Evening 🌆, Night 🌙
+       ========================================================================= */
+    .qr-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(15, 23, 42, 0.38);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    .qr-popover.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
-        pointer-events: auto;
+
+    body.night-mode .qr-modal-overlay {
+      background: rgba(0, 0, 0, 0.72);
     }
-    
-    .qr-popover img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        border-radius: 8px;
+
+    .qr-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
-    
-    .qr-arrow {
-        position: absolute;
-        top: -6px;
-        right: 20px;
-        width: 12px;
-        height: 12px;
-        background: white;
-        transform: rotate(45deg);
-        box-shadow: -1px -1px 1px rgba(0,0,0,0.05);
+
+    .qr-modal-card {
+      width: 100%;
+      max-width: 320px;
+      /* Small & perfect size matching Image 2 */
+      background: var(--qr-card-bg, var(--surface-elevated, rgba(255, 255, 255, 0.88)));
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1.5px solid var(--qr-card-border, var(--glass-border));
+      border-radius: 22px;
+      padding: 18px 18px 16px 18px;
+      box-shadow: 0 20px 50px -10px var(--glass-shadow),
+        0 0 0 1px var(--glow-color),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      transform: scale(0.92) translateY(8px);
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.25s ease,
+        background 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    body.night-mode .qr-modal-card {
+      box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.85),
+        0 0 25px var(--qr-orb-glow, var(--card-hover-glow)),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .qr-modal-overlay.active .qr-modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .qr-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .qr-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .qr-icon-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--qr-badge-bg, var(--card-hover-glow, rgba(59, 130, 246, 0.15)));
+      border: 1px solid var(--qr-badge-border, var(--glass-border));
+      color: var(--qr-badge-color, var(--accent-primary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .qr-icon-badge svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      color: var(--qr-badge-color, var(--accent-primary));
+      transition: color 0.3s ease;
+    }
+
+    .qr-header-text {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .qr-modal-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 2px 0;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.3s ease;
+    }
+
+    .qr-modal-subtitle {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.3;
+      transition: color 0.3s ease;
+    }
+
+    .qr-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      padding: 0;
+      margin-top: -2px;
+    }
+
+    body.night-mode .qr-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .qr-close-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: rotate(90deg);
+      border-color: var(--accent-primary);
+    }
+
+    /* Inner QR Code container with ambient gradient matching theme */
+    .qr-card-container {
+      margin: 12px 0 14px 0;
+      background: var(--qr-inner-bg, var(--glass-bg));
+      border: 1px solid var(--qr-inner-border, var(--glass-border));
+      border-radius: 16px;
+      padding: 16px 12px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 4px 18px var(--glass-shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dynamic ambient glow orb behind QR code matching page background floating orbs */
+    .qr-card-container::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: var(--qr-orb-glow, var(--card-hover-glow));
+      filter: blur(35px);
+      opacity: 0.75;
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.4s ease, opacity 0.4s ease;
+    }
+
+    .qr-white-frame {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 10px;
+      box-shadow: 0 10px 25px -4px var(--glass-shadow),
+        0 0 15px var(--qr-orb-glow, var(--card-hover-glow)),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .qr-white-frame:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px var(--qr-orb-glow, var(--card-hover-glow));
+    }
+
+    .qr-white-frame img {
+      width: 140px;
+      height: 140px;
+      display: block;
+      object-fit: contain;
+      border-radius: 4px;
+      image-rendering: pixelated;
+    }
+
+    .qr-email-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: 10px;
+      word-break: break-all;
+      letter-spacing: 0.2px;
+      padding: 0 4px;
+      max-width: 100%;
+      position: relative;
+      z-index: 1;
+      transition: color 0.3s ease;
+    }
+
+    /* Action button with dynamic gradient matching current active theme */
+    .qr-copy-btn {
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 9999px;
+      background: var(--qr-btn-gradient, linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%));
+      border: none;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px var(--qr-btn-shadow, var(--card-hover-glow));
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .qr-copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px var(--qr-btn-shadow, var(--card-hover-glow));
+      filter: brightness(1.08);
+    }
+
+    .qr-copy-btn:active {
+      transform: translateY(0);
+      filter: brightness(0.96);
+    }
+
+    .qr-copy-btn.copied {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
     }
 
     /* Modal Animation classes */
     .modal-open {
-        display: flex !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
+      display: flex !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
     }
-    
+
     .modal-open .glass-panel {
-        transform: scale(1) !important;
-        opacity: 1 !important;
+      transform: scale(1) !important;
+      opacity: 1 !important;
     }
 
     /* Tooltip */
@@ -483,24 +805,264 @@
 
     /* Layout */
     .container {
-      max-width: 1000px;
+      max-width: 1130px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 32px 20px 48px 20px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 28px;
+    }
+
+    /* =========================================================================
+       HERO INTRO SECTION & UNIQUE FLOATING WIDGETS
+       ========================================================================= */
+    .intro-hero-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0 12px 0;
+      width: 100%;
+    }
+
+    .intro-hero-center {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Top Announcement Pill */
+    .intro-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px 4px 6px;
+      border-radius: 9999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 16px var(--glass-shadow);
+      margin-bottom: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .intro-pill:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent-primary);
+    }
+
+    .intro-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2.5px 8px;
+      border-radius: 9999px;
+      background: var(--accent-primary);
+      color: #ffffff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .intro-pill-text {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: -0.1px;
+    }
+
+    /* Main Headline */
+    .intro-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .intro-headline-highlight {
+      background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-primary) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Subtitle */
+    .intro-subtitle {
+      font-size: 0.96rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      max-width: 620px;
+      margin: 0 auto 16px auto;
+      font-weight: 400;
+    }
+
+    /* Feature Tags Row */
+    .intro-tags-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .intro-feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px var(--glass-shadow);
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+
+    .intro-feature-tag:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 14px var(--card-hover-glow);
+    }
+
+    /* Floating 3D Graphic Elements (1.svg & 2.svg) */
+    .intro-float-3d,
+    .intro-float-widget {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      transition: filter 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 18px var(--card-hover-glow));
+    }
+
+    .intro-3d-graphic {
+      width: clamp(118px, 10.8vw, 148px);
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .intro-float-left {
+      left: 4px;
+      animation: float3DLeft 6.5s ease-in-out infinite alternate;
+    }
+
+    .intro-float-right {
+      right: 4px;
+      animation: float3DRight 7.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes float3DLeft {
+      0% {
+        transform: translateY(-50%) translate3d(0, 0, 0) rotate(-3deg);
+      }
+
+      50% {
+        transform: translateY(-50%) translate3d(0, -14px, 0) rotate(1.5deg);
+      }
+
+      100% {
+        transform: translateY(-50%) translate3d(0, 0, 0) rotate(-3deg);
+      }
+    }
+
+    @keyframes float3DRight {
+      0% {
+        transform: translateY(-50%) translate3d(0, 0, 0) rotate(3deg);
+      }
+
+      50% {
+        transform: translateY(-50%) translate3d(0, -16px, 0) rotate(-1.5deg);
+      }
+
+      100% {
+        transform: translateY(-50%) translate3d(0, 0, 0) rotate(3deg);
+      }
+    }
+
+    .intro-float-3d:hover,
+    .intro-float-widget:hover {
+      filter: drop-shadow(0 22px 38px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 30px var(--accent-glow));
+    }
+
+    .intro-float-3d:hover .intro-3d-graphic,
+    .intro-float-widget:hover .intro-3d-graphic {
+      transform: scale(1.12) rotate(4deg);
+    }
+
+    .status-pulse-green {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse-dot 2s infinite;
+      display: inline-block;
+    }
+
+    .status-pulse-amber {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 8px #f59e0b;
+      animation: pulse-dot 2s infinite;
+      display: inline-block;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .intro-float-widget {
+        display: none !important;
+      }
     }
 
     /* Hero Section */
     .hero-card {
       text-align: center;
-      padding: 40px;
+      padding: 24px 20px 20px 20px;
       position: relative;
-      z-index: 50; /* Ensure popover stays above content below */
-      /* overflow: hidden; Removed to allow QR popover to overflow */
-      /* Light source shimmer behind */
+      z-index: 2;
+      overflow: hidden;
     }
-    
+
     .hero-card::before {
       content: '';
       position: absolute;
@@ -515,16 +1077,38 @@
       pointer-events: none;
     }
 
+    body.night-mode .hero-card::before {
+      /* Starfield effect */
+      background-image:
+        radial-gradient(1px 1px at 10% 10%, #fff 100%, transparent),
+        radial-gradient(1px 1px at 20% 40%, #fff 100%, transparent),
+        radial-gradient(2px 2px at 40% 80%, var(--accent-primary) 100%, transparent),
+        radial-gradient(1px 1px at 80% 20%, #fff 100%, transparent);
+      background-size: 300px 300px;
+      opacity: 0.3;
+      animation: starTwinkle 5s infinite alternate;
+    }
+
+    animation: lightSource 10s infinite alternate;
+    z-index: -1;
+    pointer-events: none;
+    }
+
     @keyframes lightSource {
-      0% { transform: translate(-10%, -10%); }
-      100% { transform: translate(10%, 10%); }
+      0% {
+        transform: translate(-10%, -10%);
+      }
+
+      100% {
+        transform: translate(10%, 10%);
+      }
     }
 
     .hero-title {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 2rem;
-      margin-bottom: 8px;
+      font-size: 1.85rem;
+      margin-bottom: 16px;
       background: linear-gradient(45deg, var(--text-primary), var(--accent-primary));
       -webkit-background-clip: text;
       background-clip: text;
@@ -533,7 +1117,7 @@
 
     /* Countdown */
     .countdown-container {
-      margin-top: 16px;
+      margin-top: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -541,52 +1125,77 @@
     }
 
     .countdown-text {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--text-secondary);
+      font-family: 'DM Sans', sans-serif;
     }
-    
+
+    .countdown-text #timer-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-left: 4px;
+      letter-spacing: 0.4px;
+    }
+
     .countdown-text.urgent {
       color: #ff4757;
       animation: pulse-red 1s infinite;
     }
-    
+
     @keyframes pulse-red {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.6;
+      }
+
+      100% {
+        opacity: 1;
+      }
     }
 
     .progress-bar {
       width: 200px;
-      height: 4px;
-      background: rgba(0,0,0,0.1);
-      border-radius: 2px;
+      height: 3.5px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 9999px;
       overflow: hidden;
+      position: relative;
+    }
+
+    body.night-mode .progress-bar {
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .progress-fill {
       height: 100%;
       background: var(--accent-primary);
-      width: 100%;
-      transition: width 1s linear;
+      border-radius: 9999px;
+      transition: width 1s linear, background-color 0.4s ease;
+      box-shadow: 0 0 8px var(--card-hover-glow);
     }
 
-    /* Inbox */
+    /* Inbox Section */
     .inbox-panel {
-      padding: 24px;
-      min-height: 400px;
+      padding: 18px 22px;
+      min-height: 380px;
       display: flex;
       flex-direction: column;
+      position: relative;
+      z-index: 1;
     }
 
     .inbox-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       border-bottom: 1px solid var(--glass-border);
-      padding-bottom: 16px;
+      padding-bottom: 8px;
     }
 
     .badge {
@@ -597,7 +1206,7 @@
       font-size: 0.8rem;
       margin-left: 8px;
     }
-    
+
     .refresh-status {
       font-size: 0.8rem;
       color: var(--text-muted);
@@ -605,7 +1214,7 @@
       align-items: center;
       gap: 6px;
     }
-    
+
     .pulsing-dot {
       width: 8px;
       height: 8px;
@@ -613,11 +1222,19 @@
       border-radius: 50%;
       animation: pulse-green 2s infinite;
     }
-    
+
     @keyframes pulse-green {
-      0% { box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(46, 213, 115, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(46, 213, 115, 0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(46, 213, 115, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(46, 213, 115, 0);
+      }
     }
 
     .email-list {
@@ -630,7 +1247,8 @@
     .email-item {
       padding: 16px;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1); /* Slight contrast */
+      background: rgba(255, 255, 255, 0.1);
+      /* Slight contrast */
       border: 1px solid transparent;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -640,13 +1258,13 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     .email-item:hover {
       background: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
       border-color: var(--accent-primary);
     }
-    
+
     .email-item.unread {
       border-left: 4px solid var(--accent-primary);
       font-weight: 600;
@@ -655,7 +1273,8 @@
 
     .email-content {
       flex: 1;
-      min-width: 0; /* Truncate fix */
+      min-width: 0;
+      /* Truncate fix */
     }
 
     .email-sender {
@@ -693,7 +1312,7 @@
       font-size: 0.8rem;
       color: var(--text-secondary);
     }
-    
+
     /* Email Reader Overlay */
     .email-reader {
       position: fixed;
@@ -702,19 +1321,20 @@
       bottom: 0;
       width: 100%;
       max-width: 600px;
-      background: var(--bg-gradient-mid); /* Fallback */
+      background: var(--bg-gradient-mid);
+      /* Fallback */
       z-index: 1000;
       transform: translateX(100%);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
-      box-shadow: -10px 0 40px rgba(0,0,0,0.2);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
     }
-    
+
     .email-reader.open {
       transform: translateX(0);
     }
-    
+
     /* Apply glassmorphism to the reader container itself manually to override solid bg */
     .reader-glass {
       background: var(--glass-bg);
@@ -737,9 +1357,10 @@
       flex: 1;
       padding: 20px;
       overflow-y: auto;
-      background: rgba(255, 255, 255, 0.5); /* Lighten for readability */
+      background: rgba(255, 255, 255, 0.5);
+      /* Lighten for readability */
     }
-    
+
     .night-mode .reader-body {
       background: rgba(0, 0, 0, 0.2);
     }
@@ -780,27 +1401,40 @@
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     /* Skeleton Loading */
     .skeleton {
-      background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
       background-size: 200% 100%;
       animation: shimmer-skeleton 1.5s infinite;
       border-radius: 4px;
     }
 
     @keyframes shimmer-skeleton {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
     }
-    
+
     /* Toast */
     .toast-container {
       position: fixed;
-      top: 80px; /* Moved down to be below the 60px header + some spacing */
+      top: 80px;
+      /* Moved down to be below the 60px header + some spacing */
       right: 20px;
       z-index: 2000;
       display: flex;
@@ -808,7 +1442,7 @@
       gap: 12px;
       pointer-events: none;
     }
-    
+
     .toast {
       min-width: 200px;
       max-width: 280px;
@@ -816,7 +1450,7 @@
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(12px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -831,84 +1465,128 @@
     }
 
     .night-mode .toast {
-        background: rgba(30, 30, 35, 0.9);
-        color: #fff;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      background: rgba(30, 30, 35, 0.9);
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     /* Toast Types */
-    .toast.success { border-left-color: #2ecc71; }
-    .toast.success .toast-icon { background: #2ecc71; color: white; }
-    
-    .toast.error { border-left-color: #ff4757; }
-    .toast.error .toast-icon { background: #ff4757; color: white; }
-    
-    .toast.info { border-left-color: #4A9FD4; }
-    .toast.info .toast-icon { background: #4A9FD4; color: white; }
-    
-    .toast.warning { border-left-color: #f1c40f; }
-    .toast.warning .toast-icon { background: #f1c40f; color: black; }
+    .toast.success {
+      border-left-color: #2ecc71;
+    }
+
+    .toast.success .toast-icon {
+      background: #2ecc71;
+      color: white;
+    }
+
+    .toast.error {
+      border-left-color: #ff4757;
+    }
+
+    .toast.error .toast-icon {
+      background: #ff4757;
+      color: white;
+    }
+
+    .toast.info {
+      border-left-color: #4A9FD4;
+    }
+
+    .toast.info .toast-icon {
+      background: #4A9FD4;
+      color: white;
+    }
+
+    .toast.warning {
+      border-left-color: #f1c40f;
+    }
+
+    .toast.warning .toast-icon {
+      background: #f1c40f;
+      color: black;
+    }
 
     .toast-icon {
-        width: 20px; height: 20px;
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 11px;
-        flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
     }
-    
+
     .toast-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    
+
     .toast-title {
-        font-weight: 700;
-        font-size: 0.85rem;
-        margin-bottom: 0;
-        color: var(--text-primary);
-        line-height: 1.2;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 0;
+      color: var(--text-primary);
+      line-height: 1.2;
     }
-    
+
     .toast-message {
-        font-size: 0.75rem;
-        color: var(--text-secondary);
-        line-height: 1.3;
-        margin-top: 1px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+      margin-top: 1px;
     }
 
     /* Progress Bar */
     .toast-progress {
-        position: absolute;
-        bottom: 0; left: 0;
-        height: 2px;
-        background: rgba(0,0,0,0.1);
-        width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: rgba(0, 0, 0, 0.1);
+      width: 100%;
     }
-    
+
     .toast-progress-bar {
-        height: 100%;
-        background: currentColor;
-        width: 100%;
-        animation: toastProgress linear forwards;
+      height: 100%;
+      background: currentColor;
+      width: 100%;
+      animation: toastProgress linear forwards;
     }
-    
-    .toast.success .toast-progress-bar { background: #2ecc71; }
-    .toast.error .toast-progress-bar { background: #ff4757; }
-    .toast.info .toast-progress-bar { background: #4A9FD4; }
+
+    .toast.success .toast-progress-bar {
+      background: #2ecc71;
+    }
+
+    .toast.error .toast-progress-bar {
+      background: #ff4757;
+    }
+
+    .toast.info .toast-progress-bar {
+      background: #4A9FD4;
+    }
 
     @keyframes toastSlideIn {
-      to { opacity: 1; transform: translateX(0) scale(1); }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
     }
-    
+
     @keyframes toastSlideOut {
-      to { opacity: 0; transform: translateX(50px) scale(0.9); }
+      to {
+        opacity: 0;
+        transform: translateX(50px) scale(0.9);
+      }
     }
-    
+
     @keyframes toastProgress {
-        to { width: 0%; }
+      to {
+        width: 0%;
+      }
     }
 
     /* Confetti Canvas */
@@ -929,158 +1607,236 @@
       color: var(--text-muted);
       font-size: 0.8rem;
     }
-    
+
     .theme-switcher-manual {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
     }
-    
+
     .theme-btn {
-      background: none;
-      border: 1px solid var(--glass-border);
+      background: var(--glass-bg, rgba(255, 255, 255, 0.4));
+      border: 1.5px solid var(--glass-border, rgba(0, 0, 0, 0.08));
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
+      width: 32px;
+      height: 32px;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      opacity: 0.6;
-      transition: opacity 0.2s;
+      font-size: 15px;
+      line-height: 1;
+      opacity: 0.7;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      padding: 0;
     }
-    
-    .theme-btn:hover, .theme-btn.active {
+
+    .theme-btn:hover {
       opacity: 1;
-      background: rgba(255,255,255,0.2);
+      transform: translateY(-1px) scale(1.08);
+      border-color: var(--accent-primary);
+    }
+
+    .theme-btn.active {
+      opacity: 1;
+      transform: scale(1.12);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px var(--card-hover-glow, rgba(245, 166, 35, 0.3)), 0 4px 10px rgba(0, 0, 0, 0.08);
+      background: var(--surface-elevated, rgba(255, 255, 255, 0.65));
     }
 
     /* Responsive & Layout Tweaks */
     @media (max-width: 768px) {
-      .hero-card { padding: 20px; }
-      .email-reader { width: 100%; max-width: 100%; }
-      .header-glass { padding: 10px 20px; }
-      .action-grid { grid-template-columns: repeat(2, 1fr); }
-      .email-pill-content { font-size: 0.9rem; max-width: 200px; }
+      .hero-card {
+        padding: 20px 16px;
+      }
+
+      .inbox-panel {
+        padding: 16px 14px;
+      }
+
+      .email-reader {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .header-glass {
+        padding: 10px 20px;
+      }
+
+      .action-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .email-pill-content {
+        font-size: 0.9rem;
+        max-width: 200px;
+      }
     }
 
     @media (max-width: 480px) {
-      .container { padding: 10px; gap: 16px; }
-      .hero-title { font-size: 1.5rem; }
-      .email-pill-container { flex-direction: column; border-radius: 20px; gap: 8px; padding: 12px; }
-      .email-pill-content { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 0 0 8px 0; margin: 0; width: 100%; text-align: center; }
-      .qr-btn { align-self: center; }
-      .action-grid { gap: 10px; }
+      .container {
+        padding: 10px;
+        gap: 16px;
+      }
+
+      .hero-card {
+        padding: 16px 12px;
+      }
+
+      .inbox-panel {
+        padding: 14px 10px;
+      }
+
+      .hero-title {
+        font-size: 1.5rem;
+      }
+
+      .email-pill-container {
+        flex-direction: column;
+        border-radius: 20px;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .email-pill-content {
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        padding: 0 0 8px 0;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+      }
+
+      .qr-btn {
+        align-self: center;
+      }
+
+      .action-grid {
+        gap: 10px;
+      }
     }
 
     /* Email Preview Tooltip */
     .email-item {
-        position: relative;
+      position: relative;
     }
-    
+
     .email-item:hover .email-preview-tooltip {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
-    
+
     .email-preview-tooltip {
-        position: absolute;
-        top: 100%;
-        left: 20px;
-        right: 20px;
-        background: var(--glass-bg);
-        backdrop-filter: blur(15px);
-        border: 1px solid var(--glass-border);
-        padding: 12px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        z-index: 10;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.2s ease;
-        pointer-events: none;
-        color: var(--text-primary);
-        font-size: 0.9rem;
-        line-height: 1.4;
+      position: absolute;
+      top: 100%;
+      left: 20px;
+      right: 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
 
     /* =========================================================================
        CUSTOM SHARE MODAL
        ========================================================================= */
     .share-modal {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-        backdrop-filter: blur(8px);
-        z-index: 2100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      z-index: 2100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
-    
-    .share-modal.active {
-        opacity: 1;
-        pointer-events: auto;
-    }
-    
-    .share-content {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        padding: 24px;
-        border-radius: 24px;
-        width: 90%;
-        max-width: 320px;
-        text-align: center;
-        transform: translateY(20px);
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    }
-    
-    .share-modal.active .share-content {
-        transform: translateY(0);
-    }
-    
-    .share-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-top: 20px;
-    }
-    
-    .share-option {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 16px;
-        background: rgba(255,255,255,0.05);
-        border-radius: 16px;
-        text-decoration: none;
-        color: var(--text-primary);
-        transition: all 0.2s;
-        border: 1px solid var(--glass-border);
-        cursor: pointer;
-    }
-    
-    .share-option:hover {
-        background: rgba(255,255,255,0.15);
-        transform: translateY(-2px);
-        border-color: var(--accent-primary);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    
-    .share-icon { font-size: 24px; margin-bottom: 8px; display: block; }
-    .share-label { font-size: 12px; font-weight: 600; display: block; }
 
-      /* =========================================================================
+    .share-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .share-content {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 24px;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 320px;
+      text-align: center;
+      transform: translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .share-modal.active .share-content {
+      transform: translateY(0);
+    }
+
+    .share-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .share-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.2s;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+    }
+
+    .share-option:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .share-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .share-label {
+      font-size: 12px;
+      font-weight: 600;
+      display: block;
+    }
+
+    /* =========================================================================
        ATTACHMENT SYSTEM
        ========================================================================= */
     .attachment-section {
@@ -1088,6 +1844,7 @@
       padding-top: 20px;
       border-top: 1px dashed var(--glass-border);
     }
+
     .attachment-title {
       font-weight: 700;
       font-size: 1rem;
@@ -1097,11 +1854,13 @@
       gap: 8px;
       color: var(--text-primary);
     }
+
     .attachment-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 16px;
     }
+
     .attachment-card {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid var(--glass-border);
@@ -1114,27 +1873,31 @@
       position: relative;
       overflow: hidden;
     }
+
     .attachment-card:hover {
       background: rgba(255, 255, 255, 0.4);
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
       border-color: var(--accent-primary);
     }
+
     .file-icon {
       font-size: 24px;
       width: 44px;
       height: 44px;
-      background: rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.3);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
+
     .file-info {
       flex: 1;
       min-width: 0;
     }
+
     .file-name {
       font-weight: 600;
       font-size: 0.9rem;
@@ -1144,14 +1907,17 @@
       color: var(--text-primary);
       margin-bottom: 2px;
     }
+
     .file-size {
       font-size: 0.75rem;
       color: var(--text-secondary);
     }
+
     .file-actions {
       display: flex;
       gap: 4px;
     }
+
     .action-icon-btn {
       width: 32px;
       height: 32px;
@@ -1165,8 +1931,9 @@
       align-items: center;
       justify-content: center;
     }
+
     .action-icon-btn:hover {
-      background: rgba(255,255,255,0.5);
+      background: rgba(255, 255, 255, 0.5);
       color: var(--accent-primary);
       border-color: var(--glass-border);
     }
@@ -1174,9 +1941,11 @@
     /* Preview Modal */
     .preview-modal {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(15px);
       z-index: 3000;
       display: flex;
@@ -1186,10 +1955,12 @@
       visibility: hidden;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     .preview-modal.active {
       opacity: 1;
       visibility: visible;
     }
+
     .preview-content {
       width: 90%;
       height: 90%;
@@ -1201,27 +1972,31 @@
       overflow: hidden;
       position: relative;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     .preview-header {
       padding: 16px 24px;
       border-bottom: 1px solid var(--glass-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
     }
+
     .preview-title {
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: var(--text-primary);
-        display: flex;
-        align-items: center;
-        gap: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+
     .preview-body {
       flex: 1;
-      background: rgba(0,0,0,0.05); /* Neutral bg for content */
+      background: rgba(0, 0, 0, 0.05);
+      /* Neutral bg for content */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1229,12 +2004,14 @@
       padding: 20px;
       position: relative;
     }
+
     .preview-media {
       max-width: 100%;
       max-height: 100%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
       border-radius: 8px;
     }
+
     .preview-iframe {
       width: 100%;
       height: 100%;
@@ -1242,50 +2019,79 @@
       background: white;
       border-radius: 8px;
     }
+
     .preview-code {
-        background: #1e1e1e;
-        color: #d4d4d4;
-        padding: 20px;
-        border-radius: 8px;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.9rem;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
     }
-    
+
     .unsupported-preview {
-        text-align: center;
-        padding: 40px;
+      text-align: center;
+      padding: 40px;
     }
-    
+
     .footer-links {
-        margin-top: 15px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
+
     .footer-link {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
     }
+
     .footer-link:hover {
-        color: var(--accent-primary);
-        text-decoration: underline;
+      color: var(--accent-primary);
+      text-decoration: underline;
     }
 
     /* Animation Utilities */
-    .fade-in { animation: fadeIn 0.5s ease forwards; opacity: 0; }
-    .slide-up { animation: slideUp 0.5s ease forwards; opacity: 0; transform: translateY(20px); }
-    
-    @keyframes fadeIn { to { opacity: 1; } }
-    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
 
+    .slide-up {
+      animation: slideUp 0.5s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Instant Theme Application Support (Zero Flash / Zero Delay on Load) */
+    html.preload-theme,
+    html.preload-theme *,
+    html.preload-theme body {
+      transition: none !important;
+      -webkit-transition: none !important;
+    }
   </style>
 </head>
+
 <body>
   <!-- Floating Background Shapes -->
   <div class="bg-shape bg-shape-1"></div>
@@ -1297,55 +2103,128 @@
 
   <!-- Header -->
   <header class="header-glass">
-    <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 60px;">
+    <div
+      style="max-width: 1130px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 60px; padding: 0 20px;">
       <div style="display: flex; align-items: center; gap: 8px;">
-        <img id="logo-emoji" src="LOL.svg" alt="LOL Logo" style="height: 40px; width: auto; cursor: pointer; display: inline-block;">
-        <h1 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text-primary);">LOL Mails</h1>
+        <img id="logo-emoji" src="LOL.svg" alt="LOL Logo"
+          style="height: 40px; width: auto; cursor: pointer; display: inline-block;">
+        <h1 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text-primary);">
+          LOL Mails</h1>
       </div>
       <div style="display: none; align-items: center; gap: 8px;" class="desktop-only">
-        <span style="font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary);">Temporary. Private. Hilarious.</span>
+        <span
+          style="font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary);">Temporary.
+          Private. Hilarious.</span>
       </div>
-      <div id="theme-badge" style="background: rgba(0,0,0,0.05); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--glass-border);">
-        🌅 Morning Mode
+      <div id="theme-badge"
+        style="background: rgba(0,0,0,0.05); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--glass-border);">
+        Loading Theme...
       </div>
     </div>
   </header>
 
   <div class="container">
-    
-    <!-- Hero Section -->
-    <section class="glass-panel hero-card slide-up tilt-card" style="animation-delay: 0.1s;">
-      <h2 class="hero-title">Your Temp Email is Ready 🔥</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: 0.9rem;">🔒 No signup. No tracking. 100% anonymous.</p>
-      
-      <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
-        <div class="email-pill-container" style="position: relative; z-index: 50; margin: 0;">
-            <div class="email-pill-content" onclick="copyEmail()" title="Click to copy">
-            <span id="email-text">generating...</span>
-            </div>
-            <button class="qr-btn" onclick="toggleQRCode(event)" title="Show QR Code">
-            <span>📱</span>
-            </button>
-            
-            <!-- QR Popover -->
-            <div id="qr-popover" class="qr-popover">
-                <img id="qr-image" src="" alt="QR Code">
-                <div class="qr-arrow"></div>
-            </div>
+
+    <!-- Hero Intro Banner with Unique Floating Elements (Above Email Card) -->
+    <div class="intro-hero-wrapper slide-up">
+      <!-- Left Floating 3D Graphic (1.svg) -->
+      <div class="intro-float-3d intro-float-widget intro-float-left desktop-only" title="3D Temp Mail Envelope">
+        <img src="1.svg" alt="3D Temp Mail Envelope" class="intro-3d-graphic" width="145" height="145" loading="eager">
+      </div>
+
+      <!-- Center Hero Content -->
+      <div class="intro-hero-center">
+        <div class="intro-pill">
+          <span class="intro-pill-badge">
+            <span class="status-pulse-green"></span>
+            LIVE ENGINE
+          </span>
+          <span class="intro-pill-text">Zero logs · Auto-expiring burner addresses · Instant inbox</span>
         </div>
-        
-        <button class="qr-btn glass-panel" onclick="shareAddress()" title="Share Address" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; background: var(--glass-bg); border: 1px solid var(--glass-border);">
-            <span>📤</span>
+
+        <h1 class="intro-headline">
+          LOL Mails that vanishes <br>
+          <span class="intro-headline-highlight">before spam finds you</span>
+        </h1>
+
+        <p class="intro-subtitle">
+          One click, one address, no sign-up. We catch your verification code the second it lands.
+        </p>
+
+        <div class="intro-tags-row">
+          <span class="intro-feature-tag">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            Instant 8s Live Sync
+          </span>
+          <span class="intro-feature-tag">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            No sign-up
+          </span>
+          <span class="intro-feature-tag">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Free forever
+          </span>
+        </div>
+      </div>
+
+      <!-- Right Floating 3D Graphic (2.svg) -->
+      <div class="intro-float-3d intro-float-widget intro-float-right desktop-only" title="3D Privacy Shield">
+        <img src="2.svg" alt="3D Privacy Shield" class="intro-3d-graphic" width="145" height="145" loading="eager">
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="glass-panel hero-card slide-up" style="animation-delay: 0.1s;">
+      <h2 class="hero-title">Your Temp Email is Ready 🔥</h2>
+
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+        <div class="email-pill-container" style="position: relative; z-index: 50; margin: 0;">
+          <div class="email-pill-content" onclick="copyEmail()" title="Click to copy address">
+            <span id="email-text">generating...</span>
+          </div>
+          <button class="qr-btn" onclick="openQRCodeModal(event)" title="Address QR code" aria-label="Address QR code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-qr-code" aria-hidden="true">
+              <rect width="5" height="5" x="3" y="3" rx="1"></rect>
+              <rect width="5" height="5" x="16" y="3" rx="1"></rect>
+              <rect width="5" height="5" x="3" y="16" rx="1"></rect>
+              <path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
+              <path d="M21 21v.01"></path>
+              <path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
+              <path d="M3 12h.01"></path>
+              <path d="M12 3h.01"></path>
+              <path d="M12 16v.01"></path>
+              <path d="M16 12h1"></path>
+              <path d="M21 12v.01"></path>
+              <path d="M12 21v-1"></path>
+            </svg>
+          </button>
+        </div>
+
+        <button class="qr-btn glass-panel" onclick="shareAddress()" title="Share Address"
+          style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; background: var(--glass-bg); border: 1px solid var(--glass-border);">
+          <span>📤</span>
         </button>
       </div>
-      
+
       <!-- New Action Buttons Grid -->
       <div class="action-grid">
         <button class="action-btn" onclick="copyEmail()" title="Copy Address">
           <span class="action-icon">📋</span>
           <span class="action-label">Copy</span>
         </button>
-        <button class="action-btn" onclick="refreshInbox()" title="Check for new emails">
+        <button class="action-btn" onclick="manualRefreshInbox()" title="Check for new emails">
           <span class="action-icon">🔄</span>
           <span class="action-label">Refresh</span>
         </button>
@@ -1360,7 +2239,7 @@
       </div>
 
       <div class="countdown-container">
-        <span class="countdown-text">Expires in: <span id="timer-display">10:00</span></span>
+        <span class="countdown-text">Expires in: <span id="timer-display">2d 00h 00m 00s</span></span>
         <div class="progress-bar">
           <div class="progress-fill" id="timer-bar"></div>
         </div>
@@ -1374,13 +2253,14 @@
           <h3 style="font-size: 1.2rem; font-weight: 700;">📬 Inbox</h3>
           <span class="badge" id="unread-count">0</span>
         </div>
-        
+
         <div style="display: flex; align-items: center; gap: 12px;">
           <span class="refresh-status desktop-only">
             <div class="pulsing-dot"></div>
-            Auto-refreshing every 8s
+            <span id="refresh-status-text">Auto-refreshing in <strong id="refresh-counter"
+                style="font-variant-numeric: tabular-nums;">8</strong>s</span>
           </span>
-          <button class="btn btn-glass btn-icon" onclick="refreshInbox()" title="Refresh Now">
+          <button class="btn btn-glass btn-icon" onclick="manualRefreshInbox()" title="Refresh Now">
             <span id="refresh-icon">🔄</span>
           </button>
         </div>
@@ -1408,19 +2288,23 @@
   <footer class="slide-up" style="animation-delay: 0.3s;">
     <p data-i18n="footer.copyright">LOL Mails © 2026 — Free forever. Built for privacy.</p>
     <div class="footer-links">
-        <a href="about.html" class="footer-link" data-i18n="nav.about">About</a>
-        <a href="privacy.html" class="footer-link" data-i18n="nav.privacy">Privacy</a>
-        <a href="terms.html" class="footer-link" data-i18n="nav.terms">Terms</a>
-        <a href="blog.html" class="footer-link" data-i18n="nav.blog">Blog</a>
-        <a href="faq.html" class="footer-link" data-i18n="nav.faq">FAQ</a>
-        <a href="contact.html" class="footer-link" data-i18n="nav.contact">Contact</a>
+      <a href="about.html" class="footer-link" data-i18n="nav.about">About</a>
+      <a href="privacy.html" class="footer-link" data-i18n="nav.privacy">Privacy</a>
+      <a href="terms.html" class="footer-link" data-i18n="nav.terms">Terms</a>
+      <a href="blog.html" class="footer-link" data-i18n="nav.blog">Blog</a>
+      <a href="faq.html" class="footer-link" data-i18n="nav.faq">FAQ</a>
+      <a href="contact.html" class="footer-link" data-i18n="nav.contact">Contact</a>
     </div>
 
     <div class="theme-switcher-manual">
-      <button class="theme-btn" onclick="setThemeOverride('morning')" title="Morning">🌅</button>
-      <button class="theme-btn" onclick="setThemeOverride('noon')" title="Noon">☀️</button>
-      <button class="theme-btn" onclick="setThemeOverride('evening')" title="Evening">🌆</button>
-      <button class="theme-btn" onclick="setThemeOverride('night')" title="Night">🌙</button>
+      <button class="theme-btn" id="theme-btn-morning" onclick="setThemeOverride('morning')"
+        title="Morning (6 AM - 11 AM)">🌅</button>
+      <button class="theme-btn" id="theme-btn-noon" onclick="setThemeOverride('noon')"
+        title="Noon (11 AM - 4 PM)">☀️</button>
+      <button class="theme-btn" id="theme-btn-evening" onclick="setThemeOverride('evening')"
+        title="Evening (4 PM - 8 PM)">🌆</button>
+      <button class="theme-btn" id="theme-btn-night" onclick="setThemeOverride('night')"
+        title="Night (8 PM - 6 AM)">🌙</button>
     </div>
   </footer>
 
@@ -1430,7 +2314,8 @@
       <div class="reader-header">
         <h3 style="font-size: 1.1rem; font-weight: 700;">Reading Email</h3>
         <div style="display: flex; gap: 8px;">
-          <button class="btn btn-glass" onclick="deleteCurrentEmail()" style="color: #ff4757; border-color: rgba(255, 71, 87, 0.3);">
+          <button class="btn btn-glass" onclick="deleteCurrentEmail()"
+            style="color: #ff4757; border-color: rgba(255, 71, 87, 0.3);">
             🗑️ Delete
           </button>
           <button class="btn btn-glass btn-icon" onclick="closeReader()">
@@ -1438,7 +2323,7 @@
           </button>
         </div>
       </div>
-      
+
       <div class="reader-body">
         <div class="reader-metadata">
           <h2 id="reader-subject" style="font-size: 1.4rem; margin-bottom: 8px;">Subject Line</h2>
@@ -1447,92 +2332,138 @@
             <span id="reader-date">10:00 AM</span>
           </div>
         </div>
-        
+
         <div id="reader-content-container" style="margin-top: 20px; min-height: 200px;">
           <!-- Content injected here -->
         </div>
-                
+
         <!-- Attachment Section -->
         <div id="attachment-section" class="attachment-section" style="display: none;">
           <div class="attachment-title">
-                <span>📎 Attachments</span>
-                <span id="attachment-count" class="badge" style="background: var(--glass-border); color: var(--text-primary);">0</span>
-            </div>
-            <div id="attachment-list" class="attachment-list">
-                <!-- Attachments injected here -->
+            <span>📎 Attachments</span>
+            <span id="attachment-count" class="badge"
+              style="background: var(--glass-border); color: var(--text-primary);">0</span>
+          </div>
+          <div id="attachment-list" class="attachment-list">
+            <!-- Attachments injected here -->
           </div>
         </div>
       </div>
     </div>
   </div>
 
-    <!-- QR Code Modal -->
-    <div id="qr-modal" class="email-reader" style="justify-content: center; align-items: center; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px);">
-        <div class="glass-panel" style="padding: 40px; text-align: center; max-width: 90%; width: 350px; position: relative; transform: scale(0.9); opacity: 0; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
-            <button onclick="closeQRCode()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary);">✖️</button>
-            <h3 style="font-family: 'Syne'; font-weight: 800; margin-bottom: 24px; font-size: 1.5rem;">Scan QR Code</h3>
-            
-            <div style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 20px;">
-                <img id="qr-image" src="" alt="QR Code" style="width: 200px; height: 200px; display: block;">
-            </div>
-            
-            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">Scan to open email on mobile</p>
-            <p id="qr-email-text" style="font-family: 'JetBrains Mono'; font-size: 0.8rem; opacity: 0.7; word-break: break-all;"></p>
+  <!-- Address QR Code Modal (Matches Image 2) -->
+  <div id="qr-modal" class="qr-modal-overlay" onclick="handleQRBackdropClick(event)">
+    <div class="qr-modal-card" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
+      <!-- Header -->
+      <div class="qr-modal-header">
+        <div class="qr-header-left">
+          <div class="qr-icon-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-qr-code" aria-hidden="true">
+              <rect width="5" height="5" x="3" y="3" rx="1"></rect>
+              <rect width="5" height="5" x="16" y="3" rx="1"></rect>
+              <rect width="5" height="5" x="3" y="16" rx="1"></rect>
+              <path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
+              <path d="M21 21v.01"></path>
+              <path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
+              <path d="M3 12h.01"></path>
+              <path d="M12 3h.01"></path>
+              <path d="M12 16v.01"></path>
+              <path d="M16 12h1"></path>
+              <path d="M21 12v.01"></path>
+              <path d="M12 21v-1"></path>
+            </svg>
+          </div>
+          <div class="qr-header-text">
+            <h3 id="qr-modal-title" class="qr-modal-title">Address QR code</h3>
+            <p class="qr-modal-subtitle">Scan with your phone's camera to grab this address on another device.</p>
+          </div>
         </div>
+        <button class="qr-close-btn" onclick="closeQRCode()" title="Close" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- QR Code Preview Card -->
+      <div class="qr-card-container">
+        <div class="qr-white-frame">
+          <img id="qr-modal-img" src="" alt="Address QR Code" width="140" height="140" loading="eager">
+        </div>
+        <div id="qr-email-display" class="qr-email-display">Generating address...</div>
+      </div>
+
+      <!-- Action Button -->
+      <button id="qr-copy-btn" class="qr-copy-btn" onclick="copyAddressFromQR()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span id="qr-copy-btn-text">Copy address</span>
+      </button>
     </div>
+  </div>
 
   <!-- Toast Container -->
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Share Modal -->
   <div id="share-modal" class="share-modal" onclick="if(event.target === this) closeShareModal()">
-      <div class="share-content glass-panel">
-          <h3 style="font-family: 'Syne'; margin-bottom: 8px;">Share Address</h3>
-          <p style="font-size: 0.9rem; color: var(--text-secondary);">Choose how you want to send this.</p>
-          
-          <div class="share-grid">
-              <a id="share-wa" href="#" target="_blank" class="share-option">
-                  <span class="share-icon" style="color: #25D366;"><i class="fab fa-whatsapp"></i></span>
-                  <span class="share-label">WhatsApp</span>
-              </a>
-              <a id="share-tg" href="#" target="_blank" class="share-option">
-                  <span class="share-icon" style="color: #0088cc;"><i class="fab fa-telegram"></i></span>
-                  <span class="share-label">Telegram</span>
-              </a>
-              <a id="share-email" href="#" class="share-option">
-                  <span class="share-icon" style="color: #EA4335;">✉️</span>
-                  <span class="share-label">Email</span>
-              </a>
-              <div onclick="copyLinkFromModal()" class="share-option">
-                  <span class="share-icon" style="color: var(--accent-primary);">📋</span>
-                  <span class="share-label">Copy Link</span>
-              </div>
-          </div>
-          
-          <button onclick="closeShareModal()" class="btn btn-glass" style="margin-top: 20px; width: 100%; justify-content: center;">Cancel</button>
+    <div class="share-content glass-panel">
+      <h3 style="font-family: 'Syne'; margin-bottom: 8px;">Share Address</h3>
+      <p style="font-size: 0.9rem; color: var(--text-secondary);">Choose how you want to send this.</p>
+
+      <div class="share-grid">
+        <a id="share-wa" href="#" target="_blank" class="share-option">
+          <span class="share-icon" style="color: #25D366;"><i class="fab fa-whatsapp"></i></span>
+          <span class="share-label">WhatsApp</span>
+        </a>
+        <a id="share-tg" href="#" target="_blank" class="share-option">
+          <span class="share-icon" style="color: #0088cc;"><i class="fab fa-telegram"></i></span>
+          <span class="share-label">Telegram</span>
+        </a>
+        <a id="share-email" href="#" class="share-option">
+          <span class="share-icon" style="color: #EA4335;">✉️</span>
+          <span class="share-label">Email</span>
+        </a>
+        <div onclick="copyLinkFromModal()" class="share-option">
+          <span class="share-icon" style="color: var(--accent-primary);">📋</span>
+          <span class="share-label">Copy Link</span>
+        </div>
       </div>
+
+      <button onclick="closeShareModal()" class="btn btn-glass"
+        style="margin-top: 20px; width: 100%; justify-content: center;">Cancel</button>
+    </div>
   </div>
 
-    <!-- Preview Modal -->
+  <!-- Preview Modal -->
   <div id="preview-modal" class="preview-modal">
-      <div class="preview-content">
-          <div class="preview-header">
-              <div class="preview-title">
-                  <span id="preview-filename">file.name</span>
-              </div>
-              <div style="display: flex; gap: 10px;">
-                  <button class="btn btn-primary" id="preview-download-btn" style="padding: 8px 16px; font-size: 0.85rem;">
-                      ⬇ Download
-                  </button>
-                  <button class="action-icon-btn" onclick="closePreview()" style="width: 36px; height: 36px; font-size: 1.2rem;">
-                      ✕
-                  </button>
-              </div>
-          </div>
-          <div class="preview-body" id="preview-body">
-              <!-- Content injected here -->
-          </div>
+    <div class="preview-content">
+      <div class="preview-header">
+        <div class="preview-title">
+          <span id="preview-filename">file.name</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-primary" id="preview-download-btn" style="padding: 8px 16px; font-size: 0.85rem;">
+            ⬇ Download
+          </button>
+          <button class="action-icon-btn" onclick="closePreview()"
+            style="width: 36px; height: 36px; font-size: 1.2rem;">
+            ✕
+          </button>
+        </div>
       </div>
+      <div class="preview-body" id="preview-body">
+        <!-- Content injected here -->
+      </div>
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
@@ -1545,7 +2476,7 @@
       API_HOST: 'privatix-temp-mail-v1.p.rapidapi.com',
       API_BASE: '/request',
       POLL_INTERVAL: 8000,
-      EXPIRY_TIME: 600, // 10 minutes in seconds
+      EXPIRY_TIME: 172800, // 2 days in seconds (48 hours = 172,800s)
     };
 
     const STATE = {
@@ -1557,159 +2488,41 @@
       timer: CONFIG.EXPIRY_TIME,
       timerInterval: null,
       pollInterval: null,
+      pollCountdown: 8,
       currentEmailId: null,
       themeOverride: null,
-      hasReceivedEmail: false
+      hasReceivedEmail: false,
+      isPrompting: false
     };
-
-    /* =========================================================================
-       THEME MANAGER
-       ========================================================================= */
-    const THEMES = {
-      morning: {
-        '--bg-gradient-start': '#B8D4F5',
-        '--bg-gradient-mid': '#E8F4FD',
-        '--bg-gradient-end': '#FDFEFE',
-        '--glass-bg': 'rgba(255, 255, 255, 0.35)',
-        '--glass-border': 'rgba(255, 255, 255, 0.6)',
-        '--glass-shadow': 'rgba(100, 160, 220, 0.2)',
-        '--accent-primary': '#4A9FD4',
-        '--accent-secondary': '#2C7ABF',
-        '--text-primary': '#1A2E42',
-        '--text-secondary': '#4A6880',
-        '--text-muted': '#7B94A6',
-        '--glow-color': 'rgba(255, 255, 255, 0.5)',
-        '--card-hover-glow': 'rgba(74, 159, 212, 0.2)',
-        name: '🌅 Morning Mode'
-      },
-      noon: {
-        '--bg-gradient-start': '#FFF8E1',
-        '--bg-gradient-mid': '#FFFDE7',
-        '--bg-gradient-end': '#F5F5DC',
-        '--glass-bg': 'rgba(255, 255, 240, 0.4)',
-        '--glass-border': 'rgba(255, 220, 100, 0.5)',
-        '--glass-shadow': 'rgba(245, 166, 35, 0.2)',
-        '--accent-primary': '#F5A623',
-        '--accent-secondary': '#D48806',
-        '--text-primary': '#2D2000',
-        '--text-secondary': '#6B4F00',
-        '--text-muted': '#A68A50',
-        '--glow-color': 'rgba(255, 220, 100, 0.3)',
-        '--card-hover-glow': 'rgba(245, 166, 35, 0.3)',
-        name: '☀️ Noon Mode'
-      },
-      evening: {
-        '--bg-gradient-start': '#1A1040',
-        '--bg-gradient-mid': '#2D1B69',
-        '--bg-gradient-end': '#8B3A3A',
-        '--glass-bg': 'rgba(255, 120, 60, 0.1)',
-        '--glass-border': 'rgba(255, 150, 80, 0.3)',
-        '--glass-shadow': 'rgba(255, 107, 53, 0.3)',
-        '--accent-primary': '#FF6B35',
-        '--accent-secondary': '#E85A23',
-        '--text-primary': '#FFE8D6',
-        '--text-secondary': '#FFB899',
-        '--text-muted': '#CC8A70',
-        '--glow-color': 'rgba(255, 107, 53, 0.2)',
-        '--card-hover-glow': 'rgba(255, 107, 53, 0.4)',
-        name: '🌆 Evening Mode'
-      },
-      night: {
-        '--bg-gradient-start': '#09090b', /* Deep charcoal */
-        '--bg-gradient-mid': '#18181b',   /* Darker zinc */
-        '--bg-gradient-end': '#000000',   /* Pure black */
-        '--glass-bg': 'rgba(20, 20, 23, 0.65)', /* Darker, more opaque glass */
-        '--glass-border': 'rgba(255, 255, 255, 0.08)', /* Subtle border */
-        '--glass-shadow': 'rgba(0, 0, 0, 0.5)', /* Stronger shadows for depth */
-        '--accent-primary': '#818cf8', /* Indigo 400 - Classy purple-blue */
-        '--accent-secondary': '#6366f1', /* Indigo 500 */
-        '--text-primary': '#f4f4f5', /* Zinc 100 */
-        '--text-secondary': '#a1a1aa', /* Zinc 400 */
-        '--text-muted': '#52525b', /* Zinc 600 */
-        '--glow-color': 'rgba(129, 140, 248, 0.15)', /* Subtle indigo glow */
-        '--card-hover-glow': 'rgba(99, 102, 241, 0.3)',
-        name: '🌙 Night Mode'
-      }
-    };
-
-    function updateTheme() {
-      // Check localStorage first (handled by init logic usually, but here we sync)
-      const saved = localStorage.getItem('theme_override');
-      if (saved && THEMES[saved]) {
-          STATE.themeOverride = saved;
-      }
-
-
-      if (STATE.themeOverride) {
-        applyTheme(THEMES[STATE.themeOverride]);
-        return;
-      }
-
-      const hour = new Date().getHours();
-      let themeKey = 'morning';
-
-      if (hour >= 6 && hour < 11) themeKey = 'morning';
-      else if (hour >= 11 && hour < 16) themeKey = 'noon';
-      else if (hour >= 16 && hour < 20) themeKey = 'evening';
-      else themeKey = 'night';
-
-      // Easter egg: Midnight
-      if (hour === 0 && new Date().getMinutes() === 0) {
-        showToast('🌙 Midnight Mode Unlocked', 'info');
-      }
-
-      applyTheme(THEMES[themeKey]);
-    }
-
-    function applyTheme(theme) {
-      const root = document.documentElement;
-      for (const [key, value] of Object.entries(theme)) {
-        if (key !== 'name') root.style.setProperty(key, value);
-      }
-      document.getElementById('theme-badge').textContent = theme.name;
-      
-      // Toggle night mode class for specific overrides
-      if (theme.name.includes('Night') || theme.name.includes('Evening')) {
-        document.body.classList.add('night-mode');
-      } else {
-        document.body.classList.remove('night-mode');
-      }
-    }
-
-    function setThemeOverride(themeKey) {
-      STATE.themeOverride = themeKey;
-      localStorage.setItem('theme_override', themeKey); // Save to storage
-      updateTheme();
-      showToast(`Theme set to ${THEMES[themeKey].name}`, 'success');
-    }
 
     /* =========================================================================
        API SERVICE
        ========================================================================= */
     async function apiCall(endpoint, method = 'GET') {
-      // Proxy handles API key injection
-      
       const url = `${CONFIG.API_BASE}${endpoint}`;
       console.log('API Call:', url);
-      const headers = {
-        // 'x-rapidapi-key': STATE.apiKey, // Handled by proxy
-        // 'x-rapidapi-host': CONFIG.API_HOST
-      };
-      
+      const headers = {};
+      if (STATE.apiKey) {
+        headers['x-rapidapi-key'] = STATE.apiKey;
+      }
+
       try {
         const response = await fetch(url, { method, headers });
         if (!response.ok) {
-           // Privatix returns 404 when there are no emails
-           if (response.status === 404 && endpoint.includes('/mail/id/')) {
-             return { error: 'No emails' };
-           }
-           if (response.status === 401 || response.status === 403) {
-             STATE.apiKey = '';
-             localStorage.removeItem('rapid_api_key');
-             promptApiKey();
-             throw new Error("Invalid API Key");
-           }
-           throw new Error(`API Error: ${response.status}`);
+          // Privatix returns 404 when there are no emails
+          if (response.status === 404 && endpoint.includes('/mail/id/')) {
+            return { error: 'No emails' };
+          }
+          if (response.status === 401 || response.status === 403) {
+            const errorData = await response.json().catch(() => ({}));
+            const msg = errorData.message || (response.status === 403 ? "Not subscribed or invalid key" : "Unauthorized");
+            // Only prompt key if not currently running a background poll check
+            if (!STATE.isPrompting && !endpoint.includes('/mail/id/')) {
+              promptApiKey(msg);
+            }
+            throw new Error(msg);
+          }
+          throw new Error(`API Error: ${response.status}`);
         }
         return await response.json();
       } catch (error) {
@@ -1718,12 +2531,23 @@
       }
     }
 
-    function promptApiKey() {
-      const key = prompt("Please enter your RapidAPI Key for Temp Mail (Privatix):");
-      if (key) {
-        STATE.apiKey = key;
-        localStorage.setItem('rapid_api_key', key);
-        window.location.reload(); // Reload to restart init
+    function promptApiKey(details = '') {
+      if (STATE.isPrompting) return;
+      STATE.isPrompting = true;
+
+      const promptMsg = details
+        ? `Privatix Temp Mail API error: "${details}".\n\nEnter your RapidAPI Key (must be subscribed to 'Temp Mail' by Privatix):`
+        : "Please enter your RapidAPI Key for Temp Mail (Privatix):";
+
+      const key = prompt(promptMsg);
+      STATE.isPrompting = false;
+
+      if (key && key.trim()) {
+        STATE.apiKey = key.trim();
+        localStorage.setItem('rapid_api_key', key.trim());
+        window.location.reload();
+      } else {
+        showToast("Active RapidAPI subscription to Temp Mail required.", "error");
       }
     }
 
@@ -1731,73 +2555,119 @@
        CORE LOGIC
        ========================================================================= */
     async function initApp() {
-      updateTheme();
-      setInterval(updateTheme, 60000); // Check theme every minute
-      
-      // Start logo animation
-      startLogoAnimation();
+      // Ensure dynamic theme is applied immediately
+      if (typeof updateTheme === 'function') {
+        updateTheme(true);
+      }
 
-      // Proxy handles authentication
+      // Restore user-saved API key from localStorage if present
+      const savedKey = localStorage.getItem('rapid_api_key');
+      if (savedKey) {
+        STATE.apiKey = savedKey;
+      }
+
+      // Start logo animation, session timer, and polling countdown immediately
+      startLogoAnimation();
+      startTimer();
+      startPolling();
+
+      // Initialize email identity
       try {
         await getEmailAddress();
-        startTimer();
-        startPolling();
       } catch (e) {
-        console.error(e);
-        showToast("Failed to initialize.", "error");
+        console.warn("Initialization email error:", e);
       }
     }
 
-    async function getEmailAddress() {
-      // 1. Get Domains
-      const domains = await apiCall('/domains/');
-      if (!Array.isArray(domains) || domains.length === 0) {
-        throw new Error("No domains available");
+    const FALLBACK_DOMAINS = ['@greencafe24.com', '@lolmails.fun', '@inboxkitten.com'];
+
+    async function getEmailAddress(forceNew = false) {
+      // Check for valid unexpired address saved in localStorage (persists across page refresh)
+      if (!forceNew) {
+        try {
+          const savedAddr = localStorage.getItem('temp_mail_address');
+          const savedExp = parseInt(localStorage.getItem('temp_mail_expires_at'), 10);
+          if (savedAddr && savedExp && savedExp > Date.now()) {
+            STATE.emailAddress = savedAddr;
+            STATE.emailHash = md5(savedAddr);
+            STATE.timer = Math.floor((savedExp - Date.now()) / 1000);
+
+            const emailEl = document.getElementById('email-text');
+            if (emailEl) emailEl.textContent = STATE.emailAddress;
+            updateTimerDisplay();
+            renderInbox();
+            return;
+          }
+        } catch (e) { }
       }
-      
+
+      // 1. Get Domains
+      let domains = null;
+      try {
+        domains = await apiCall('/domains/');
+      } catch (e) {
+        console.warn("Could not retrieve remote domains, using fallback domains.", e);
+      }
+
+      if (!Array.isArray(domains) || domains.length === 0) {
+        domains = FALLBACK_DOMAINS;
+      }
+
       // 2. Generate Random Email
       const randomDomain = domains[Math.floor(Math.random() * domains.length)];
       const randomUser = Math.random().toString(36).substring(2, 12);
       STATE.emailAddress = `${randomUser}${randomDomain}`;
       STATE.emailHash = md5(STATE.emailAddress);
-      
-      document.getElementById('email-text').textContent = STATE.emailAddress;
+
+      // Save to localStorage for 2 days expiry tracking
+      try {
+        localStorage.setItem('temp_mail_address', STATE.emailAddress);
+        localStorage.setItem('temp_mail_expires_at', (Date.now() + CONFIG.EXPIRY_TIME * 1000).toString());
+      } catch (e) { }
+
+      const emailEl = document.getElementById('email-text');
+      if (emailEl) emailEl.textContent = STATE.emailAddress;
       resetTimer();
-      
+
       // Clear inbox on new address
       STATE.emails = [];
       STATE.deletedEmailIds.clear(); // Clear deleted list for new email
       renderInbox();
     }
-    
+
     async function getNewAddress() {
-       // Stop polling temporarily
-       clearInterval(STATE.pollInterval);
-       await getEmailAddress();
-       startPolling();
-       showToast("New identity generated!", "success");
+      // Stop polling temporarily
+      clearInterval(STATE.pollInterval);
+      await getEmailAddress(true);
+      startPolling();
+      showToast("New identity generated!", "success");
     }
 
     async function changeAddress() {
-       await getNewAddress();
+      await getNewAddress();
     }
-    
+
     async function deleteAddress() {
       // Clear session
       STATE.emailAddress = 'Session Terminated';
       document.getElementById('email-text').textContent = '— — —';
       STATE.emails = [];
       renderInbox();
-      
+
+      try {
+        localStorage.removeItem('temp_mail_address');
+        localStorage.removeItem('temp_mail_expires_at');
+      } catch (e) { }
+
       // Stop polling
       if (STATE.pollInterval) clearInterval(STATE.pollInterval);
-      
+
       showToast("Address Destroyed", "error");
-      
+
       // Auto-restart after delay to prevent stuck state
       setTimeout(() => {
-          showToast("Generating new identity...", "info");
-          getNewAddress();
+        showToast("Generating new identity...", "info");
+        getNewAddress();
       }, 2000);
     }
 
@@ -1806,141 +2676,141 @@
        ========================================================================= */
     // Simple "Ding" Sound Generator
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playNotificationSound() {
-         // Try to say "LOL" for maximum hilarity
-         if ('speechSynthesis' in window) {
-             const msg = new SpeechSynthesisUtterance("LOL! You got mail.");
-             msg.rate = 1.2;
-             msg.pitch = 1.1;
-             window.speechSynthesis.speak(msg);
-             return;
-         }
 
-         if (audioContext.state === 'suspended') audioContext.resume();
-         
-         const oscillator = audioContext.createOscillator();
-         const gainNode = audioContext.createGain();
-         
-         oscillator.connect(gainNode);
-         gainNode.connect(audioContext.destination);
-         
-         // Happy "Ding-Dong" effect fallback
-         oscillator.type = 'sine';
-         oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-         oscillator.frequency.exponentialRampToValueAtTime(1046.5, audioContext.currentTime + 0.1); // C6
-         
-         gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
-         
-         oscillator.start();
-         oscillator.stop(audioContext.currentTime + 0.8);
-     }
+    function playNotificationSound() {
+      // Try to say "LOL" for maximum hilarity
+      if ('speechSynthesis' in window) {
+        const msg = new SpeechSynthesisUtterance("LOL! You got mail.");
+        msg.rate = 1.2;
+        msg.pitch = 1.1;
+        window.speechSynthesis.speak(msg);
+        return;
+      }
+
+      if (audioContext.state === 'suspended') audioContext.resume();
+
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      // Happy "Ding-Dong" effect fallback
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+      oscillator.frequency.exponentialRampToValueAtTime(1046.5, audioContext.currentTime + 0.1); // C6
+
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.8);
+    }
 
     async function shareAddress() {
-        if (!STATE.emailAddress || STATE.emailAddress === 'Session Terminated') {
-            showToast("No active address to share", "error");
-            return;
+      if (!STATE.emailAddress || STATE.emailAddress === 'Session Terminated') {
+        showToast("No active address to share", "error");
+        return;
+      }
+
+      // 1. Feature Detection & Secure Context Check
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'LOL Mails - My Temp Email',
+            text: `Send me an email at: ${STATE.emailAddress}`,
+            url: window.location.href
+          });
+          // Success
+        } catch (err) {
+          console.log('Share cancelled or failed', err);
+          // If it failed (e.g. desktop Chrome support varies), show fallback
+          openShareModal();
         }
-        
-        // 1. Feature Detection & Secure Context Check
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'LOL Mails - My Temp Email',
-                    text: `Send me an email at: ${STATE.emailAddress}`,
-                    url: window.location.href
-                });
-                // Success
-            } catch (err) {
-                console.log('Share cancelled or failed', err);
-                // If it failed (e.g. desktop Chrome support varies), show fallback
-                openShareModal(); 
-            }
-        } else {
-            // 2. Smart Fallback for unsupported browsers
-            openShareModal();
-        }
+      } else {
+        // 2. Smart Fallback for unsupported browsers
+        openShareModal();
+      }
     }
-    
+
     function openShareModal() {
-        const modal = document.getElementById('share-modal');
-        // Update links
-        document.getElementById('share-wa').href = `https://wa.me/?text=${encodeURIComponent(`Send me an email at: ${STATE.emailAddress}`)}`;
-        document.getElementById('share-tg').href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(`My temp email: ${STATE.emailAddress}`)}`;
-        document.getElementById('share-email').href = `mailto:?subject=My Temp Email&body=${encodeURIComponent(`Email me at: ${STATE.emailAddress}`)}`;
-        
-        modal.classList.add('active');
+      const modal = document.getElementById('share-modal');
+      // Update links
+      document.getElementById('share-wa').href = `https://wa.me/?text=${encodeURIComponent(`Send me an email at: ${STATE.emailAddress}`)}`;
+      document.getElementById('share-tg').href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(`My temp email: ${STATE.emailAddress}`)}`;
+      document.getElementById('share-email').href = `mailto:?subject=My Temp Email&body=${encodeURIComponent(`Email me at: ${STATE.emailAddress}`)}`;
+
+      modal.classList.add('active');
     }
-    
+
     function closeShareModal() {
-        document.getElementById('share-modal').classList.remove('active');
+      document.getElementById('share-modal').classList.remove('active');
     }
-    
+
     function copyLinkFromModal() {
-        copyEmail();
-        closeShareModal();
+      copyEmail();
+      closeShareModal();
     }
 
     async function refreshInbox() {
       if (!STATE.emailHash) return;
 
       const icon = document.getElementById('refresh-icon');
-      if (icon) icon.style.animation = 'spin 1s linear infinite';
-      
+      if (icon) icon.style.animation = 'spin 0.8s linear infinite';
+
       try {
         const data = await apiCall(`/mail/id/${STATE.emailHash}/`);
-        
+
         let newEmails = [];
         if (Array.isArray(data)) {
-            newEmails = data;
+          newEmails = data;
         } else if (data && data.error === 'No emails') {
-            newEmails = [];
+          newEmails = [];
         } else {
-            newEmails = [];
+          newEmails = [];
         }
-        
+
         // Filter out old emails we already know about to detect NEW ones
         const currentIds = new Set(STATE.emails.map(e => e.mail_id));
         const trulyNew = newEmails.filter(e => !currentIds.has(e.mail_id) && !STATE.deletedEmailIds.has(e.mail_id));
-        
+
         if (trulyNew.length > 0) {
           if (!STATE.hasReceivedEmail) {
             STATE.hasReceivedEmail = true;
-            fireConfetti();
+            try { fireConfetti(); } catch (e) { }
           }
           showToast(`${trulyNew.length} new message(s)!`, "success");
-          playNotificationSound(); // Play sound
+          try { playNotificationSound(); } catch (e) { }
         }
-        
+
         // Merge and Filter Deleted
         // We keep existing emails (to preserve read status/local state) and add new ones
         // Then filter out any that are in deletedEmailIds
         // Finally sort by timestamp descending
-        
+
         const allEmails = [...STATE.emails, ...trulyNew];
-        
+
         // Deduplicate just in case
         const uniqueEmails = Array.from(new Map(allEmails.map(item => [item.mail_id, item])).values());
-        
+
         STATE.emails = uniqueEmails
-            .filter(e => !STATE.deletedEmailIds.has(e.mail_id))
-            .sort((a, b) => (b.mail_timestamp || 0) - (a.mail_timestamp || 0)); // Sort Newest First
-            
+          .filter(e => !STATE.deletedEmailIds.has(e.mail_id))
+          .sort((a, b) => (b.mail_timestamp || 0) - (a.mail_timestamp || 0)); // Sort Newest First
+
         renderInbox();
       } catch (e) {
-        console.error("Refresh failed", e);
+        console.warn("Refresh inbox check:", e.message || e);
       } finally {
-        if (icon) setTimeout(() => icon.style.animation = 'none', 1000);
+        if (icon) setTimeout(() => icon.style.animation = 'none', 600);
       }
     }
 
     async function openEmail(id) {
       // Find basic info from local state first for immediate feedback
       const localEmail = STATE.emails.find(e => e.mail_id === id);
-      
+
       STATE.currentEmailId = id;
-      
+
       // Basic rendering from local data
       document.getElementById('reader-subject').textContent = localEmail ? (localEmail.mail_subject || '(No Subject)') : 'Loading...';
       document.getElementById('reader-from').textContent = localEmail ? `From: ${localEmail.mail_from}` : '';
@@ -1950,41 +2820,41 @@
       document.getElementById('attachment-list').innerHTML = '';
 
       if (localEmail && localEmail.mail_timestamp) {
-         const date = new Date(localEmail.mail_timestamp * 1000);
-         document.getElementById('reader-date').textContent = date.toLocaleString();
+        const date = new Date(localEmail.mail_timestamp * 1000);
+        document.getElementById('reader-date').textContent = date.toLocaleString();
       }
-      
+
       const container = document.getElementById('reader-content-container');
       container.innerHTML = '<div class="skeleton" style="height: 300px; width: 100%;"></div>';
-      
+
       document.getElementById('email-reader').classList.add('open');
 
       // Mark as read locally (visual only)
       const el = document.getElementById(`email-${id}`);
-      if(el) el.classList.remove('unread');
-      
+      if (el) el.classList.remove('unread');
+
       try {
         // Fetch full content from API
         // Endpoint: /request/one_mail/id/{mail_id}/
         const fullEmail = await apiCall(`/one_mail/id/${id}/`);
-        
+
         // Render Body
         const body = fullEmail.mail_html || fullEmail.mail_text || '<i>No content</i>';
-        
+
         // Create iframe to isolate styles
         const iframe = document.createElement('iframe');
         iframe.className = 'email-iframe';
         // Resize iframe based on content height
-        iframe.onload = function() {
-            try {
-                const height = iframe.contentWindow.document.body.scrollHeight;
-                iframe.style.height = (height + 50) + 'px';
-            } catch(e) {}
+        iframe.onload = function () {
+          try {
+            const height = iframe.contentWindow.document.body.scrollHeight;
+            iframe.style.height = (height + 50) + 'px';
+          } catch (e) { }
         };
-        
+
         container.innerHTML = '';
         container.appendChild(iframe);
-        
+
         const doc = iframe.contentWindow.document;
         doc.open();
         doc.write(`
@@ -1997,59 +2867,59 @@
             ${body}
           `);
         doc.close();
-                
+
         // Handle Attachments
         if (fullEmail.mail_attachments && fullEmail.mail_attachments_count > 0) {
-            renderAttachments(fullEmail.mail_attachments);
+          renderAttachments(fullEmail.mail_attachments);
         }
-        
+
       } catch (e) {
         console.error("Failed to fetch full email", e);
         // Fallback to local content if available
         if (localEmail) {
-            const body = localEmail.mail_html || localEmail.mail_text || '<i>Failed to load content.</i>';
-            container.innerHTML = '';
-            const iframe = document.createElement('iframe');
-            iframe.className = 'email-iframe';
-            container.appendChild(iframe);
-            const doc = iframe.contentWindow.document;
-            doc.open();
-            doc.write(`<style>body{font-family:sans-serif;padding:20px;}</style>${body}`);
-            doc.close();
+          const body = localEmail.mail_html || localEmail.mail_text || '<i>Failed to load content.</i>';
+          container.innerHTML = '';
+          const iframe = document.createElement('iframe');
+          iframe.className = 'email-iframe';
+          container.appendChild(iframe);
+          const doc = iframe.contentWindow.document;
+          doc.open();
+          doc.write(`<style>body{font-family:sans-serif;padding:20px;}</style>${body}`);
+          doc.close();
         } else {
-            container.innerHTML = '<div style="padding: 20px; text-align: center;">Failed to load email.</div>';
+          container.innerHTML = '<div style="padding: 20px; text-align: center;">Failed to load email.</div>';
         }
       }
-          }
-    
+    }
+
     /* =========================================================================
        ATTACHMENT LOGIC
        ========================================================================= */
     function renderAttachments(attachments) {
-        const section = document.getElementById('attachment-section');
-        const list = document.getElementById('attachment-list');
-        const countBadge = document.getElementById('attachment-count');
-        
-        // Ensure it's an array
-        const attArray = Array.isArray(attachments) ? attachments : (attachments.attachment ? attachments.attachment : []);
-        
-        if (attArray.length === 0) return;
-        
-        section.style.display = 'block';
-        countBadge.textContent = attArray.length;
-        list.innerHTML = '';
-        
-        attArray.forEach(att => {
-            const card = document.createElement('div');
-            card.className = 'attachment-card';
-            
-            const icon = getFileIcon(att.filename || 'file');
-            const size = att.size ? formatBytes(att.size) : 'Unknown size';
-            
-            // Store data for preview/download
-            // Use encodeURIComponent to safely store JSON if needed, but simple closure is better
-            
-            card.innerHTML = `
+      const section = document.getElementById('attachment-section');
+      const list = document.getElementById('attachment-list');
+      const countBadge = document.getElementById('attachment-count');
+
+      // Ensure it's an array
+      const attArray = Array.isArray(attachments) ? attachments : (attachments.attachment ? attachments.attachment : []);
+
+      if (attArray.length === 0) return;
+
+      section.style.display = 'block';
+      countBadge.textContent = attArray.length;
+      list.innerHTML = '';
+
+      attArray.forEach(att => {
+        const card = document.createElement('div');
+        card.className = 'attachment-card';
+
+        const icon = getFileIcon(att.filename || 'file');
+        const size = att.size ? formatBytes(att.size) : 'Unknown size';
+
+        // Store data for preview/download
+        // Use encodeURIComponent to safely store JSON if needed, but simple closure is better
+
+        card.innerHTML = `
                 <div class="file-icon">${icon}</div>
                 <div class="file-info">
                     <div class="file-name" title="${att.filename}">${att.filename}</div>
@@ -2064,115 +2934,115 @@
                     </button>
                 </div>
             `;
-            list.appendChild(card);
-        });
+        list.appendChild(card);
+      });
     }
-    
+
     function getFileIcon(filename) {
-        const ext = filename.split('.').pop().toLowerCase();
-        const icons = {
-            pdf: '📄',
-            doc: '📝', docx: '📝',
-            xls: '📊', xlsx: '📊', csv: '📊',
-            ppt: '📉', pptx: '📉',
-            jpg: '🖼️', jpeg: '🖼️', png: '🖼️', gif: '🖼️', webp: '🖼️',
-            zip: '📦', rar: '📦', '7z': '📦',
-            mp3: '🎵', wav: '🎵',
-            mp4: '🎬', mov: '🎬',
-            txt: '📃', md: '📃',
-            html: '💻', css: '💻', js: '💻', json: '💻'
-        };
-        return icons[ext] || '📎';
+      const ext = filename.split('.').pop().toLowerCase();
+      const icons = {
+        pdf: '📄',
+        doc: '📝', docx: '📝',
+        xls: '📊', xlsx: '📊', csv: '📊',
+        ppt: '📉', pptx: '📉',
+        jpg: '🖼️', jpeg: '🖼️', png: '🖼️', gif: '🖼️', webp: '🖼️',
+        zip: '📦', rar: '📦', '7z': '📦',
+        mp3: '🎵', wav: '🎵',
+        mp4: '🎬', mov: '🎬',
+        txt: '📃', md: '📃',
+        html: '💻', css: '💻', js: '💻', json: '💻'
+      };
+      return icons[ext] || '📎';
     }
-    
+
     function formatBytes(bytes, decimals = 2) {
-        if (!+bytes) return '0 B';
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ['B', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+      if (!+bytes) return '0 B';
+      const k = 1024;
+      const dm = decimals < 0 ? 0 : decimals;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
     }
-    
+
     function downloadAttachment(filename, content, mimetype) {
-        try {
-            const blob = b64toBlob(content, mimetype);
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            showToast(`Downloaded ${filename}`, 'success');
-        } catch(e) {
-            console.error(e);
-            showToast("Download failed", 'error');
-        }
+      try {
+        const blob = b64toBlob(content, mimetype);
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`Downloaded ${filename}`, 'success');
+      } catch (e) {
+        console.error(e);
+        showToast("Download failed", 'error');
+      }
     }
-    
+
     function previewAttachment(filename, encoding, content, mimetype) {
-        const modal = document.getElementById('preview-modal');
-        const title = document.getElementById('preview-filename');
-        const body = document.getElementById('preview-body');
-        const dlBtn = document.getElementById('preview-download-btn');
-        
-        title.textContent = filename;
-        body.innerHTML = '';
-        modal.classList.add('active');
-        
-        // Setup download button
-        dlBtn.onclick = () => downloadAttachment(filename, content, mimetype);
-        
-        try {
-            const ext = filename.split('.').pop().toLowerCase();
-            const blob = b64toBlob(content, mimetype);
-            const url = URL.createObjectURL(blob);
-            
-            // Image
-            if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'].includes(ext)) {
-                const img = document.createElement('img');
-                img.src = url;
-                img.className = 'preview-media';
-                body.appendChild(img);
-            }
-            // PDF
-            else if (ext === 'pdf') {
-                const iframe = document.createElement('iframe');
-                iframe.src = url;
-                iframe.className = 'preview-iframe';
-                body.appendChild(iframe);
-            }
-            // Audio
-            else if (['mp3', 'wav', 'ogg'].includes(ext)) {
-                const audio = document.createElement('audio');
-                audio.src = url;
-                audio.controls = true;
-                body.appendChild(audio);
-            }
-            // Video
-            else if (['mp4', 'webm', 'ogg'].includes(ext)) {
-                const video = document.createElement('video');
-                video.src = url;
-                video.controls = true;
-                video.className = 'preview-media';
-                body.appendChild(video);
-            }
-            // Text / Code
-            else if (['txt', 'md', 'html', 'css', 'js', 'json', 'xml', 'log', 'py', 'java', 'c', 'cpp'].includes(ext)) {
-                const reader = new FileReader();
-                reader.onload = function() {
-                    const pre = document.createElement('div');
-                    pre.className = 'preview-code';
-                    pre.textContent = reader.result;
-                    body.appendChild(pre);
-                };
-                reader.readAsText(blob);
-            }
-            // Others (Office, Archives, etc)
-            else {
-                body.innerHTML = `
+      const modal = document.getElementById('preview-modal');
+      const title = document.getElementById('preview-filename');
+      const body = document.getElementById('preview-body');
+      const dlBtn = document.getElementById('preview-download-btn');
+
+      title.textContent = filename;
+      body.innerHTML = '';
+      modal.classList.add('active');
+
+      // Setup download button
+      dlBtn.onclick = () => downloadAttachment(filename, content, mimetype);
+
+      try {
+        const ext = filename.split('.').pop().toLowerCase();
+        const blob = b64toBlob(content, mimetype);
+        const url = URL.createObjectURL(blob);
+
+        // Image
+        if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'].includes(ext)) {
+          const img = document.createElement('img');
+          img.src = url;
+          img.className = 'preview-media';
+          body.appendChild(img);
+        }
+        // PDF
+        else if (ext === 'pdf') {
+          const iframe = document.createElement('iframe');
+          iframe.src = url;
+          iframe.className = 'preview-iframe';
+          body.appendChild(iframe);
+        }
+        // Audio
+        else if (['mp3', 'wav', 'ogg'].includes(ext)) {
+          const audio = document.createElement('audio');
+          audio.src = url;
+          audio.controls = true;
+          body.appendChild(audio);
+        }
+        // Video
+        else if (['mp4', 'webm', 'ogg'].includes(ext)) {
+          const video = document.createElement('video');
+          video.src = url;
+          video.controls = true;
+          video.className = 'preview-media';
+          body.appendChild(video);
+        }
+        // Text / Code
+        else if (['txt', 'md', 'html', 'css', 'js', 'json', 'xml', 'log', 'py', 'java', 'c', 'cpp'].includes(ext)) {
+          const reader = new FileReader();
+          reader.onload = function () {
+            const pre = document.createElement('div');
+            pre.className = 'preview-code';
+            pre.textContent = reader.result;
+            body.appendChild(pre);
+          };
+          reader.readAsText(blob);
+        }
+        // Others (Office, Archives, etc)
+        else {
+          body.innerHTML = `
                     <div class="unsupported-preview">
                         <div style="font-size: 3rem; margin-bottom: 16px;">📦</div>
                         <h3>Preview not available</h3>
@@ -2184,101 +3054,168 @@
                         </button>
                     </div>
                 `;
-            }
-            
-        } catch(e) {
-            console.error(e);
-            body.innerHTML = '<div class="unsupported-preview">Error loading preview.</div>';
         }
-    }
-    
-    function closePreview() {
-        document.getElementById('preview-modal').classList.remove('active');
-        // Clear src to stop media playing
-        setTimeout(() => {
-             document.getElementById('preview-body').innerHTML = '';
-        }, 300);
-    }
-    
-    // Helper: Base64 to Blob
-    function b64toBlob(b64Data, contentType='', sliceSize=512) {
-        try {
-            // Remove any data URL prefix if present (e.g., "data:image/png;base64,")
-            const base64String = b64Data.includes(',') ? b64Data.split(',')[1] : b64Data;
-            
-            // Remove any whitespace or newlines that can break atob
-            let sanitizedData = base64String.replace(/\s/g, '');
-            
-            // Add padding if needed
-            while (sanitizedData.length % 4 !== 0) {
-                sanitizedData += '=';
-            }
-            
-            // Replace URL-safe chars if present
-            sanitizedData = sanitizedData.replace(/-/g, '+').replace(/_/g, '/');
 
-            const byteCharacters = atob(sanitizedData);
-            const byteArrays = [];
-          
-            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-              const slice = byteCharacters.slice(offset, offset + sliceSize);
-          
-              const byteNumbers = new Array(slice.length);
-              for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-              }
-          
-              const byteArray = new Uint8Array(byteNumbers);
-              byteArrays.push(byteArray);
-            }
-          
-            return new Blob(byteArrays, {type: contentType});
-        } catch (error) {
-            console.error('b64toBlob Error:', error);
-            // Return empty blob or throw for caller to handle
-            throw error;
-        }
+      } catch (e) {
+        console.error(e);
+        body.innerHTML = '<div class="unsupported-preview">Error loading preview.</div>';
+      }
     }
-    
+
+    function closePreview() {
+      document.getElementById('preview-modal').classList.remove('active');
+      // Clear src to stop media playing
+      setTimeout(() => {
+        document.getElementById('preview-body').innerHTML = '';
+      }, 300);
+    }
+
+    // Helper: Base64 to Blob
+    function b64toBlob(b64Data, contentType = '', sliceSize = 512) {
+      try {
+        // Remove any data URL prefix if present (e.g., "data:image/png;base64,")
+        const base64String = b64Data.includes(',') ? b64Data.split(',')[1] : b64Data;
+
+        // Remove any whitespace or newlines that can break atob
+        let sanitizedData = base64String.replace(/\s/g, '');
+
+        // Add padding if needed
+        while (sanitizedData.length % 4 !== 0) {
+          sanitizedData += '=';
+        }
+
+        // Replace URL-safe chars if present
+        sanitizedData = sanitizedData.replace(/-/g, '+').replace(/_/g, '/');
+
+        const byteCharacters = atob(sanitizedData);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+
+        return new Blob(byteArrays, { type: contentType });
+      } catch (error) {
+        console.error('b64toBlob Error:', error);
+        // Return empty blob or throw for caller to handle
+        throw error;
+      }
+    }
+
     /* =========================================================================
-       QR CODE POPOVER
+       ADDRESS QR CODE MODAL (Matches Image 2)
        ========================================================================= */
-    function toggleQRCode(e) {
-        e.stopPropagation(); // Prevent closing immediately
-        
-        if (!STATE.emailAddress || STATE.emailAddress === 'Session Terminated') {
-            showToast("No active address", "error");
-            return;
-        }
-        
-        const popover = document.getElementById('qr-popover');
-        const isActive = popover.classList.contains('active');
-        
-        if (isActive) {
-            popover.classList.remove('active');
-        } else {
-            // Generate QR
-            const img = popover.querySelector('img');
-            img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(STATE.emailAddress)}`;
-            popover.classList.add('active');
-        }
+    function openQRCodeModal(e) {
+      if (e) e.stopPropagation();
+
+      if (!STATE.emailAddress || STATE.emailAddress === 'Session Terminated') {
+        showToast("No active address", "error");
+        return;
+      }
+
+      const modal = document.getElementById('qr-modal');
+      const img = document.getElementById('qr-modal-img');
+      const display = document.getElementById('qr-email-display');
+      const copyBtn = document.getElementById('qr-copy-btn');
+      const copyText = document.getElementById('qr-copy-btn-text');
+
+      if (display) {
+        display.textContent = STATE.emailAddress;
+      }
+
+      if (copyBtn) {
+        copyBtn.classList.remove('copied');
+      }
+      if (copyText) {
+        copyText.textContent = "Copy address";
+      }
+
+      if (img) {
+        // High quality crisp QR code matching Image 2
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=0&data=${encodeURIComponent(STATE.emailAddress)}`;
+        img.src = qrUrl;
+        img.onerror = () => {
+          img.src = `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${encodeURIComponent(STATE.emailAddress)}`;
+        };
+      }
+
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
     }
-    
-    // Close QR Popover when clicking outside
-    document.addEventListener('click', (e) => {
-        const popover = document.getElementById('qr-popover');
-        const btn = document.querySelector('.qr-btn');
-        
-        if (popover && popover.classList.contains('active')) {
-            if (!popover.contains(e.target) && !btn.contains(e.target)) {
-                popover.classList.remove('active');
-            }
+
+    function toggleQRCode(e) {
+      openQRCodeModal(e);
+    }
+
+    function closeQRCode() {
+      const modal = document.getElementById('qr-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleQRBackdropClick(e) {
+      if (e.target && e.target.id === 'qr-modal') {
+        closeQRCode();
+      }
+    }
+
+    async function copyAddressFromQR() {
+      if (!STATE.emailAddress) return;
+
+      const copyBtn = document.getElementById('qr-copy-btn');
+      const copyText = document.getElementById('qr-copy-btn-text');
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(STATE.emailAddress);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = STATE.emailAddress;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
         }
+
+        if (copyBtn) copyBtn.classList.add('copied');
+        if (copyText) copyText.innerHTML = `✓ Copied!`;
+        showToast("Address copied to clipboard!", "success");
+
+        setTimeout(() => {
+          if (copyBtn) copyBtn.classList.remove('copied');
+          if (copyText) copyText.textContent = "Copy address";
+        }, 2000);
+      } catch (err) {
+        showToast("Failed to copy address", "error");
+      }
+    }
+
+    // Escape key closes modals
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeQRCode();
+        if (typeof closeShareModal === 'function') closeShareModal();
+        if (typeof closeReader === 'function') closeReader();
+      }
     });
 
     async function deleteCurrentEmail() {
       if (!STATE.currentEmailId) return;
-      
+
       try {
         // await apiCall('del_email', { email_ids: STATE.currentEmailId });
         // RapidAPI Basic plan doesn't always support message deletion, so we just remove locally
@@ -2287,7 +3224,7 @@
 
         // Add to persistent deleted list
         STATE.deletedEmailIds.add(STATE.currentEmailId);
-        
+
         // Remove from local list
         STATE.emails = STATE.emails.filter(e => e.mail_id !== STATE.currentEmailId);
         renderInbox();
@@ -2303,34 +3240,34 @@
       const list = document.getElementById('email-list');
       const emptyState = document.getElementById('empty-state');
       const unreadBadge = document.getElementById('unread-count');
-      
+
       list.innerHTML = '';
-      unreadBadge.textContent = STATE.emails.length; 
-      
+      unreadBadge.textContent = STATE.emails.length;
+
       if (STATE.emails.length === 0) {
-        if(emptyState) emptyState.style.display = 'flex';
+        if (emptyState) emptyState.style.display = 'flex';
         return;
       }
-      
-      if(emptyState) emptyState.style.display = 'none';
-      
+
+      if (emptyState) emptyState.style.display = 'none';
+
       STATE.emails.forEach((email, index) => {
         const li = document.createElement('li');
         // Privatix doesn't have mail_read, so we assume unread or track locally if we wanted
-        li.className = `email-item unread slide-up`; 
+        li.className = `email-item unread slide-up`;
         li.id = `email-${email.mail_id}`;
         li.style.animationDelay = `${index * 0.05}s`;
         li.onclick = () => openEmail(email.mail_id);
-        
+
         // Format timestamp
         let timeStr = 'Today';
         if (email.mail_timestamp) {
-            const date = new Date(email.mail_timestamp * 1000);
-            timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const date = new Date(email.mail_timestamp * 1000);
+          timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
-        
+
         const preview = email.mail_preview || email.mail_excerpt || email.mail_subject || 'No preview';
-        
+
         li.innerHTML = `
           <div class="email-content">
             <div class="email-sender">${email.mail_from}</div>
@@ -2360,7 +3297,7 @@
       if (!STATE.emailAddress) return;
       navigator.clipboard.writeText(STATE.emailAddress).then(() => {
         showToast("Email copied to clipboard!", "success");
-        
+
         // Pop animation
         const btn = document.querySelector('.btn-primary');
         btn.style.transform = 'scale(1.15)';
@@ -2372,16 +3309,16 @@
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
-      
+
       let icon = 'ℹ️';
       let defaultTitle = 'Info';
-      
+
       if (type === 'success') { icon = '✓'; defaultTitle = 'Success'; }
       if (type === 'error') { icon = '✕'; defaultTitle = 'Error'; }
       if (type === 'warning') { icon = '⚠'; defaultTitle = 'Warning'; }
-      
+
       const displayTitle = title || defaultTitle;
-      
+
       toast.innerHTML = `
         <div class="toast-icon">${icon}</div>
         <div class="toast-content">
@@ -2392,19 +3329,19 @@
             <div class="toast-progress-bar" style="animation-duration: 3000ms;"></div>
         </div>
       `;
-      
+
       // Click to dismiss
       toast.onclick = () => {
-          toast.style.animation = 'toastSlideOut 0.3s forwards';
-          setTimeout(() => toast.remove(), 300);
+        toast.style.animation = 'toastSlideOut 0.3s forwards';
+        setTimeout(() => toast.remove(), 300);
       };
-      
+
       container.appendChild(toast);
-      
+
       setTimeout(() => {
         if (toast.parentElement) {
-            toast.style.animation = 'toastSlideOut 0.3s forwards';
-            setTimeout(() => toast.remove(), 300);
+          toast.style.animation = 'toastSlideOut 0.3s forwards';
+          setTimeout(() => toast.remove(), 300);
         }
       }, 3000);
     }
@@ -2414,7 +3351,7 @@
        ========================================================================= */
     function startTimer() {
       if (STATE.timerInterval) clearInterval(STATE.timerInterval);
-      
+
       STATE.timerInterval = setInterval(() => {
         STATE.timer--;
         if (STATE.timer <= 0) {
@@ -2422,7 +3359,7 @@
           // Let's just reset timer for UX, assuming session stays alive if we poll.
           // Guerrilla sessions expire after 1 hour of inactivity.
           // The visual timer is mostly for "urgency" effect as requested.
-          resetTimer(); 
+          resetTimer();
         }
         updateTimerDisplay();
       }, 1000);
@@ -2430,22 +3367,41 @@
 
     function resetTimer() {
       STATE.timer = CONFIG.EXPIRY_TIME;
+      try {
+        localStorage.setItem('temp_mail_expires_at', (Date.now() + CONFIG.EXPIRY_TIME * 1000).toString());
+        if (STATE.emailAddress) {
+          localStorage.setItem('temp_mail_address', STATE.emailAddress);
+        }
+      } catch (e) { }
       updateTimerDisplay();
     }
 
     function updateTimerDisplay() {
-      const m = Math.floor(STATE.timer / 60).toString().padStart(2, '0');
-      const s = (STATE.timer % 60).toString().padStart(2, '0');
-      
       const display = document.getElementById('timer-display');
       const bar = document.getElementById('timer-bar');
-      
-      display.textContent = `${m}:${s}`;
-      
-      const pct = (STATE.timer / CONFIG.EXPIRY_TIME) * 100;
+      if (!display || !bar) return;
+
+      const total = Math.max(0, STATE.timer);
+      const d = Math.floor(total / 86400);
+      const h = Math.floor((total % 86400) / 3600);
+      const m = Math.floor((total % 3600) / 60);
+      const s = total % 60;
+
+      let timeStr = '';
+      if (d > 0) {
+        timeStr = `${d}d ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+      } else if (h > 0) {
+        timeStr = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+      } else {
+        timeStr = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      }
+
+      display.textContent = timeStr;
+
+      const pct = Math.max(0, Math.min(100, (total / CONFIG.EXPIRY_TIME) * 100));
       bar.style.width = `${pct}%`;
-      
-      if (STATE.timer < 60) {
+
+      if (total < 3600) {
         display.classList.add('urgent');
         bar.style.background = '#ff4757';
       } else {
@@ -2454,9 +3410,68 @@
       }
     }
 
+    function updateCountdownDisplay() {
+      const statusText = document.getElementById('refresh-status-text');
+      if (!statusText) return;
+
+      if (STATE.pollCountdown <= 0) {
+        statusText.innerHTML = `Auto-refreshing in <strong id="refresh-counter" style="font-variant-numeric: tabular-nums;">0</strong>s <span style="opacity: 0.85; font-size: 0.8em; font-weight: 600;">(Refreshing...)</span>`;
+      } else {
+        statusText.innerHTML = `Auto-refreshing in <strong id="refresh-counter" style="font-variant-numeric: tabular-nums;">${STATE.pollCountdown}</strong>s`;
+      }
+    }
+
+    function resetPollingCountdown() {
+      STATE.pollCountdown = 8;
+      updateCountdownDisplay();
+    }
+
+    let isAutoRefreshing = false;
+
     function startPolling() {
-      if (STATE.pollInterval) clearInterval(STATE.pollInterval);
-      STATE.pollInterval = setInterval(refreshInbox, CONFIG.POLL_INTERVAL);
+      if (STATE.pollInterval) {
+        clearInterval(STATE.pollInterval);
+        STATE.pollInterval = null;
+      }
+      isAutoRefreshing = false;
+      resetPollingCountdown();
+
+      STATE.pollInterval = setInterval(async () => {
+        if (isAutoRefreshing) return;
+
+        if (STATE.pollCountdown > 1) {
+          STATE.pollCountdown--;
+          updateCountdownDisplay();
+        } else if (STATE.pollCountdown === 1) {
+          STATE.pollCountdown = 0;
+          updateCountdownDisplay();
+          isAutoRefreshing = true;
+
+          try {
+            await Promise.race([
+              refreshInbox(),
+              new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 2500))
+            ]).catch(err => console.warn('Background auto-refresh check:', err.message));
+
+            await new Promise(resolve => setTimeout(resolve, 600));
+          } catch (e) {
+            console.warn("Auto-refresh poll error:", e);
+          } finally {
+            isAutoRefreshing = false;
+            resetPollingCountdown();
+          }
+        } else {
+          isAutoRefreshing = false;
+          resetPollingCountdown();
+        }
+      }, 1000);
+    }
+
+    async function manualRefreshInbox() {
+      // Immediately reset countdown to 8s and restart interval to avoid double-refreshing
+      startPolling();
+      // Fetch inbox immediately
+      await refreshInbox();
     }
 
     function startLogoAnimation() {
@@ -2467,18 +3482,18 @@
         logo.style.transition = 'transform 10s linear';
         logo.style.transform = `rotate(${angle}deg)`;
       }, 10000); // Rotate 360 every 10s
-      
+
       logo.onclick = () => {
         logo.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         logo.style.transform = `rotate(${angle + 360}deg) scale(1.5)`;
         setTimeout(() => {
-            logo.style.transform = `rotate(${angle + 360}deg) scale(1)`;
-            // Reset to linear rotation loop
-            setTimeout(() => {
-                angle += 360; 
-                logo.style.transition = 'transform 10s linear';
-                logo.style.transform = `rotate(${angle}deg)`;
-            }, 500);
+          logo.style.transform = `rotate(${angle + 360}deg) scale(1)`;
+          // Reset to linear rotation loop
+          setTimeout(() => {
+            angle += 360;
+            logo.style.transition = 'transform 10s linear';
+            logo.style.transform = `rotate(${angle}deg)`;
+          }, 500);
         }, 500);
       };
     }
@@ -2491,10 +3506,10 @@
       const ctx = canvas.getContext('2d');
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      
+
       const particles = [];
       const colors = ['#4A9FD4', '#F5A623', '#FF6B35', '#00D4FF', '#ffffff'];
-      
+
       for (let i = 0; i < 100; i++) {
         particles.push({
           x: window.innerWidth / 2,
@@ -2506,11 +3521,11 @@
           life: 100
         });
       }
-      
+
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         let active = false;
-        
+
         particles.forEach(p => {
           if (p.life > 0) {
             active = true;
@@ -2519,33 +3534,50 @@
             p.vy += 0.5; // Gravity
             p.life--;
             p.size *= 0.96;
-            
+
             ctx.fillStyle = p.color;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fill();
           }
         });
-        
+
         if (active) requestAnimationFrame(animate);
         else ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
-      
+
       animate();
     }
-    
+
     // Resize listener for canvas
     window.addEventListener('resize', () => {
-        const canvas = document.getElementById('confetti-canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+      const canvas = document.getElementById('confetti-canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
 
     /* =========================================================================
        BOOTSTRAP
        ========================================================================= */
-    window.addEventListener('DOMContentLoaded', initApp);
-    
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+
+    // Handles bfcache & page restore on refresh
+    window.addEventListener('pageshow', (event) => {
+      if (!STATE.pollInterval) startPolling();
+      if (!STATE.timerInterval) startTimer();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        if (!STATE.pollInterval) startPolling();
+        if (!STATE.timerInterval) startTimer();
+      }
+    });
+
     // Add global keyframes for spin
     const styleSheet = document.createElement("style");
     styleSheet.innerText = `
@@ -2557,48 +3589,48 @@
        3D TILT EFFECT (Refined)
        ========================================================================= */
     document.addEventListener('mousemove', (e) => {
-        const cards = document.querySelectorAll('.tilt-card');
-        const x = e.clientX;
-        const y = e.clientY;
-        const winW = window.innerWidth;
-        const winH = window.innerHeight;
+      const cards = document.querySelectorAll('.tilt-card');
+      const x = e.clientX;
+      const y = e.clientY;
+      const winW = window.innerWidth;
+      const winH = window.innerHeight;
 
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            // Calculate distance from center of card to mouse
-            const distX = x - centerX;
-            const distY = y - centerY;
-            
-            // Subtle tilt based on screen position (always active)
-            const rotateX = (-(y - winH/2) / winH) * 5; 
-            const rotateY = ((x - winW/2) / winW) * 5;
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
 
-            // Stronger tilt if mouse is close/over
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
+        // Calculate distance from center of card to mouse
+        const distX = x - centerX;
+        const distY = y - centerY;
+
+        // Subtle tilt based on screen position (always active)
+        const rotateX = (-(y - winH / 2) / winH) * 5;
+        const rotateY = ((x - winW / 2) / winW) * 5;
+
+        // Stronger tilt if mouse is close/over
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
     });
 
     // Ripple Effect for Buttons
     document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            let x = e.clientX - e.target.offsetLeft;
-            let y = e.clientY - e.target.offsetTop;
-            
-            let ripples = document.createElement('span');
-            ripples.style.left = x + 'px';
-            ripples.style.top = y + 'px';
-            ripples.classList.add('ripple');
-            this.appendChild(ripples);
-            
-            setTimeout(() => {
-                ripples.remove()
-            }, 1000);
-        })
+      btn.addEventListener('click', function (e) {
+        let x = e.clientX - e.target.offsetLeft;
+        let y = e.clientY - e.target.offsetTop;
+
+        let ripples = document.createElement('span');
+        ripples.style.left = x + 'px';
+        ripples.style.top = y + 'px';
+        ripples.classList.add('ripple');
+        this.appendChild(ripples);
+
+        setTimeout(() => {
+          ripples.remove()
+        }, 1000);
+      })
     });
-    
+
     // Add ripple CSS dynamically
     const rippleStyle = document.createElement('style');
     rippleStyle.innerHTML = `
@@ -2620,4 +3652,5 @@
 
   </script>
 </body>
+
 </html>

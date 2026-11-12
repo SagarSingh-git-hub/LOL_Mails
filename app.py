@@ -1,4 +1,4 @@
-from flask import Flask, send_file, request, jsonify
+from flask import Flask, send_file, send_from_directory, request, jsonify
 import requests
 import os
 from dotenv import load_dotenv
@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
 
 # Configuration
@@ -18,15 +19,19 @@ if not API_KEY:
 
 @app.route('/')
 def index():
-    return send_file('Index.html')
+    return send_file(os.path.join(BASE_DIR, 'Index.html'))
 
 @app.route('/request/<path:endpoint>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def proxy_request(endpoint):
     target_url = f"{API_BASE_URL}/{endpoint}"
     
+    # Allow client to supply key via header, fallback to server environment key
+    client_key = request.headers.get('x-rapidapi-key')
+    active_key = client_key if client_key else API_KEY
+
     headers = {
         'x-rapidapi-host': API_HOST,
-        'x-rapidapi-key': API_KEY
+        'x-rapidapi-key': active_key
     }
     
     try:
@@ -42,13 +47,20 @@ def proxy_request(endpoint):
         # Return the response from RapidAPI
         # Filter headers to avoid transfer-encoding issues with Flask
         excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']
-        headers = [(name, value) for (name, value) in resp.headers.items()
-                   if name.lower() not in excluded_headers]
+        response_headers = [(name, value) for (name, value) in resp.headers.items()
+                            if name.lower() not in excluded_headers]
         
-        return (resp.content, resp.status_code, headers)
+        return (resp.content, resp.status_code, response_headers)
         
     except requests.exceptions.RequestException as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    file_path = os.path.join(BASE_DIR, filename)
+    if os.path.isfile(file_path):
+        return send_from_directory(BASE_DIR, filename)
+    return jsonify({'error': f'File {filename} not found'}), 404
 
 if __name__ == '__main__':
     print(f"Starting server... API Key present: {bool(API_KEY)}")
