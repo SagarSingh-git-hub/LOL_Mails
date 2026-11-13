@@ -80,7 +80,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     ```
 
 ## 📸 Preview
-<img width="1920" height="1216" alt="screencapture-lolmails-sagarsinghdev-online-2026-11-13-09_47_02" src="https://github.com/user-attachments/assets/7bd3239a-2161-46e0-a8fd-644b727ec8c3" />
+![LOL Mails Preview](preview.png)
 
 ## 🤝 Contributing
 
